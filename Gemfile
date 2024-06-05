@@ -13,10 +13,14 @@ gem "cssbundling-rails"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem 'faker'
+gem 'simple_form'
 
 group :development, :test do
   gem "pry-byebug"
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'rails-controller-testing'
+  gem 'factory_bot_rails'
 end
 
 group :development do

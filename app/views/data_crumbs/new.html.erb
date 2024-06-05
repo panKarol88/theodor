@@ -1,0 +1,9 @@
+<main class="container">
+  <%= link_to sanitize("&larr; Back to Data Crumbs"), data_crumbs_path %>
+
+  <div class="header">
+    <h1>New Data Crumb</h1>
+  </div>
+
+  <%= render "form", data_crumb: @data_crumb %>
+</main>
