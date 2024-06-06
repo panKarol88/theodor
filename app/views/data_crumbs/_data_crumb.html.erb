@@ -1,6 +1,7 @@
 <div class="data-crumb">
   <%= link_to data_crumb.id, data_crumb_path(data_crumb) %>
-  <div class="data_crumb__actions">
+  <%= data_crumb.content %>
+  <div class="data-crumb__actions">
     <%= button_to "Delete", data_crumb_path(data_crumb), method: :delete, class: "btn btn--light" %>
     <%= link_to "Edit", edit_data_crumb_path(data_crumb), class: "btn btn--light" %>
   </div>

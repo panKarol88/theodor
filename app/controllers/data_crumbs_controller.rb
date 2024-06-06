@@ -16,7 +16,7 @@ class DataCrumbsController < ApplicationController
     if @data_crumb.save
       redirect_to data_crumbs_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -26,7 +26,7 @@ class DataCrumbsController < ApplicationController
     if @data_crumb.update(data_crumb_params)
       redirect_to data_crumbs_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
