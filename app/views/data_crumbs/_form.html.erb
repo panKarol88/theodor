@@ -6,5 +6,6 @@
   <% end %>
 
   <%= f.input :content, input_html: { autofocus: true } %>
+  <%= link_to "Cancel", data_crumbs_path, class: "btn btn--light" %>
   <%= f.submit "#{action_name == 'edit' ? 'Update' : 'Create'} Data Crumb", class: "btn btn--secondary" %>
 <% end %>
