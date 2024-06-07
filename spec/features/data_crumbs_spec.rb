@@ -4,6 +4,7 @@ describe "Data Crumbs", type: :feature do
   before { create_list(:data_crumb, 3) }
 
   setup do
+    # Capybara.current_driver = :selenium
     @data_crumb = DataCrumb.first
   end
 
