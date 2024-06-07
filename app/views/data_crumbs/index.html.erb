@@ -1,8 +1,14 @@
 <main class="container">
   <div class="header">
     <h1>Data Crumbs</h1>
-    <%= link_to "New Data Crumb", new_data_crumb_path, class: "btn btn--primary" %>
+    <%= link_to "New Data Crumb", new_data_crumb_path,
+                data: { turbo_frame: dom_id(DataCrumb.new) },
+                class: "btn btn--primary" %>
   </div>
 
-  <%= render @data_crumbs %>
+  <%= turbo_frame_tag DataCrumb.new %>
+
+  <%= turbo_frame_tag "data_crumbs" do %>
+    <%= render @data_crumbs %>
+  <% end %>
 </main>

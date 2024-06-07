@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-describe "Data Crumbs", type: :feature do
+describe "Data Crumbs", :js, type: :feature do
   before { create_list(:data_crumb, 3) }
 
   setup do
-    # Capybara.current_driver = :selenium
-    @data_crumb = DataCrumb.first
+    @data_crumb = DataCrumb.order(created_at: :desc).first
   end
 
   describe "List of data crumbs" do

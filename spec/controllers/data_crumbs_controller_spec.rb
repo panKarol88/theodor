@@ -91,7 +91,7 @@ RSpec.describe DataCrumbsController, type: :controller do
 
     it "assigns @data_crumbs" do
       get :index
-      expect(assigns(:data_crumbs)).to eq(DataCrumb.all)
+      expect(assigns(:data_crumbs)).to eq(DataCrumb.order(created_at: :desc ))
     end
   end
 end

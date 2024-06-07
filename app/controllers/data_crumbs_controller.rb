@@ -2,7 +2,7 @@ class DataCrumbsController < ApplicationController
   before_action :set_data_crumb, only: %i[show edit update destroy]
 
   def index
-    @data_crumbs = DataCrumb.all
+    @data_crumbs = DataCrumb.order(created_at: :desc)
   end
 
   def show; end
@@ -14,7 +14,10 @@ class DataCrumbsController < ApplicationController
   def create
     @data_crumb = DataCrumb.new(data_crumb_params)
     if @data_crumb.save
-      redirect_to data_crumbs_path
+      respond_to do |format|
+        format.html { redirect_to data_crumbs_path }
+        format.turbo_stream
+      end
     else
       render :new, status: :unprocessable_entity
     end
@@ -32,7 +35,11 @@ class DataCrumbsController < ApplicationController
 
   def destroy
     @data_crumb.destroy
-    redirect_to data_crumbs_path
+
+    respond_to do |format|
+      format.html { redirect_to data_crumbs_path }
+      format.turbo_stream
+    end
   end
 
   private

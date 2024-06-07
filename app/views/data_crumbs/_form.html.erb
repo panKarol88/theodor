@@ -6,5 +6,5 @@
   <% end %>
 
   <%= f.input :content, input_html: { autofocus: true } %>
-  <%= f.submit class: "btn btn--secondary" %>
+  <%= f.submit "#{action_name == 'edit' ? 'Update' : 'Create'} Data Crumb", class: "btn btn--secondary" %>
 <% end %>
