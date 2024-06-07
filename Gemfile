@@ -15,6 +15,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem 'faker'
 gem 'simple_form'
+gem 'redis'
 
 group :development, :test do
   gem "pry-byebug"
