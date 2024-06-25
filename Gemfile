@@ -27,6 +27,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
+  gem 'reek'
   gem 'rspec-rails', '~> 6.1.0'
   gem 'rubocop', '~> 1.64', require: false
   gem 'rubocop-capybara', require: false

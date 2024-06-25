@@ -1,0 +1,17 @@
+exclude_paths:
+  - 'config/**/*'
+  - 'db/**/*'
+  - 'vendor/**/*'
+  - 'app/channels/application_cable/channel.rb'
+  - 'app/channels/application_cable/connection.rb'
+
+detectors:
+  IrresponsibleModule:
+    enabled: false
+  TooManyStatements:
+    max_statements: 10
+
+directories:
+  'app/controllers**':
+    InstanceVariableAssumption:
+      enabled: false
