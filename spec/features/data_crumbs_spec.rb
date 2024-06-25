@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'Data Crumbs', :js do
-  let(data_crumb) { DataCrumb.order(created_at: :desc).first }
+  let(:data_crumb) { DataCrumb.order(created_at: :desc).first }
 
   before { create_list(:data_crumb, 3) }
 
