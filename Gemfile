@@ -26,6 +26,8 @@ group :development, :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'dotenv'
+  gem 'rubocop', '~> 1.64', require: false
+  gem 'brakeman'
 end
 
 group :development do

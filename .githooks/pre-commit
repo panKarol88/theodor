@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# local git configuration command:
+# git config core.hooksPath .githooks
+
+failed=false
+
+ruby_files_modified=`git diff --staged --name-only --diff-filter=ACRM | grep -E '(\.rb|\.ruby|\.rake)' | xargs`
+
+if ! [ -z "$ruby_files_modified" ]; then
+  printf '\e[1m\e[34m========= reek ============\n\e[0m'
+  bundle exec reek $ruby_files_modified
+  if [ $? != 0 ]; then
+    failed=true
+  fi
+  printf '\n'
+
+  printf '\e[1m\e[34m========= rubocop =========\n\e[0m'
+  bundle exec rubocop --force-exclusion -A $ruby_files_modified && git add $ruby_files_modified
+  if [ $? != 0 ]; then
+    failed=true
+  fi
+  printf '\n'
+fi
+
+#
+# If your test suite takes much time to run, consider removing the step below, as it
+# will run on any file update ( like README.md update, for example ).
+#
+files_modified=`git diff --staged`
+
+if $failed; then
+  printf "\e[31m [!] Commit rejected, see the errors above. If you want to continue anyway use flag '--no-verify'. \e[0m \n"
+
+  exit 1
+fi
+
+exit
