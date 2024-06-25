@@ -22,6 +22,13 @@ if ! [ -z "$ruby_files_modified" ]; then
     failed=true
   fi
   printf '\n'
+
+  printf '\e[1m\e[34m========= brakeman =========\n\e[0m'
+    bundle exec brakeman -z -q
+    if [ $? != 0 ]; then
+      failed=true
+    fi
+    printf '\n'
 fi
 
 #
