@@ -68,6 +68,21 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  config.include Warden::Test::Helpers
+  config.after do
+    Warden.test_reset!
+  end
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Devise::Test::IntegrationHelpers, type: :request
+
+  config.before(:each, :authorized) do
+    raise 'authenticated_user is not defined' unless defined?(authenticated_user)
+
+    sign_in(authenticated_user, scope: :user)
+  end
+
   Shoulda::Matchers.configure do |matchers_config|
     matchers_config.integrate do |with|
       with.test_framework :rspec
