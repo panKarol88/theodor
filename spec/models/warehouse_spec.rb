@@ -13,4 +13,9 @@ RSpec.describe Warehouse, type: :model do
       it { expect(warehouse).not_to be_valid }
     end
   end
+
+  describe 'associations' do
+    it { should have_many(:data_crumbs).dependent(:destroy) }
+    it { should have_and_belong_to_many(:users) }
+  end
 end

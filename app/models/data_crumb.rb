@@ -1,6 +1,8 @@
 class DataCrumb < ApplicationRecord
   validates :content, presence: true
 
+  belongs_to :warehouse, inverse_of: :data_crumbs, optional: true
+
   # alternative:
   # after_create_commit -> do
   #   broadcast_prepend_to "data_crumbs",
