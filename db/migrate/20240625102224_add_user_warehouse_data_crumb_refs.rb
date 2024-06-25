@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddUserWarehouseDataCrumbRefs < ActiveRecord::Migration[7.1]
   def change
     add_reference :data_crumbs, :warehouse, null: true, foreign_key: true

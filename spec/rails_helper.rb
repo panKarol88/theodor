@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'capybara/rspec'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -66,8 +68,8 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
+  Shoulda::Matchers.configure do |matchers_config|
+    matchers_config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
     end
@@ -78,7 +80,7 @@ RSpec.configure do |config|
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
   end
 
   Capybara.javascript_driver = :selenium_chrome_headless

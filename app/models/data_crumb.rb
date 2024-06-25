@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DataCrumb < ApplicationRecord
   validates :content, presence: true
 
@@ -15,5 +17,5 @@ class DataCrumb < ApplicationRecord
   # after_update_commit -> { broadcast_replace_later_to "data_crumbs" }
   # after_destroy_commit -> { broadcast_remove_to "data_crumbs" }
 
-  broadcasts_to ->(data_crumb) { "data_crumbs" }, inserts_by: :prepend
+  broadcasts_to ->(_data_crumb) { 'data_crumbs' }, inserts_by: :prepend
 end

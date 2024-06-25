@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DataCrumbsController < ApplicationController
   before_action :set_data_crumb, only: %i[show edit update destroy]
 
@@ -11,6 +13,8 @@ class DataCrumbsController < ApplicationController
     @data_crumb = DataCrumb.new
   end
 
+  def edit; end
+
   def create
     @data_crumb = DataCrumb.new(data_crumb_params)
     if @data_crumb.save
@@ -22,8 +26,6 @@ class DataCrumbsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  def edit; end
 
   def update
     if @data_crumb.update(data_crumb_params)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Warehouse < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validate :name_is_snakecase
