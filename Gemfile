@@ -16,6 +16,7 @@ gem "bootsnap", require: false
 gem 'faker'
 gem 'simple_form'
 gem 'redis'
+gem "devise", "~> 4.9"
 
 group :development, :test do
   gem "pry-byebug"
@@ -24,6 +25,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'dotenv'
 end
 
 group :development do
@@ -33,4 +35,3 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 6.0'
 end
-
