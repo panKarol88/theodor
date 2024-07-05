@@ -31,10 +31,6 @@ if ! [ -z "$ruby_files_modified" ]; then
     printf '\n'
 fi
 
-#
-# If your test suite takes much time to run, consider removing the step below, as it
-# will run on any file update ( like README.md update, for example ).
-#
 files_modified=`git diff --staged`
 
 if $failed; then

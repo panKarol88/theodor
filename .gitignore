@@ -31,3 +31,5 @@
 .idea/
 .byebug_history
 /.byebug_history
+
+dump.rdb
