@@ -19,8 +19,9 @@ class DataCrumbsController < ApplicationController
     @data_crumb = DataCrumb.new(data_crumb_params)
     if @data_crumb.save
       respond_to do |format|
-        format.html { redirect_to data_crumbs_path }
-        format.turbo_stream
+        notice = t('data_crumbs.flash.created')
+        format.html { redirect_to data_crumbs_path, notice: }
+        format.turbo_stream { flash.now[:notice] = notice }
       end
     else
       render :new, status: :unprocessable_entity
@@ -29,7 +30,11 @@ class DataCrumbsController < ApplicationController
 
   def update
     if @data_crumb.update(data_crumb_params)
-      redirect_to data_crumbs_path
+      respond_to do |format|
+        notice = t('data_crumbs.flash.updated')
+        format.html { redirect_to data_crumbs_path, notice: }
+        format.turbo_stream { flash.now[:notice] = notice }
+      end
     else
       render :edit, status: :unprocessable_entity
     end
@@ -37,10 +42,10 @@ class DataCrumbsController < ApplicationController
 
   def destroy
     @data_crumb.destroy
-
     respond_to do |format|
-      format.html { redirect_to data_crumbs_path }
-      format.turbo_stream
+      notice = t('data_crumbs.flash.destroyed')
+      format.html { redirect_to data_crumbs_path, notice: }
+      format.turbo_stream { flash.now[:notice] = notice }
     end
   end
 

@@ -29,3 +29,8 @@
 
 en:
   hello: "Hello world"
+  data_crumbs:
+    flash:
+      created: "DataCrumb was successfully created."
+      updated: "DataCrumb  was successfully updated."
+      destroyed: "DataCrumb was successfully destroyed."

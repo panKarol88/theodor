@@ -1,2 +1,3 @@
 <%= turbo_stream.prepend "data_crumbs", @data_crumb %>
 <%= turbo_stream.update DataCrumb.new, "" %>
+<%= render_turbo_stream_flash_messages %>
