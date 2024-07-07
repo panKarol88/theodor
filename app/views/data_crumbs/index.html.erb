@@ -1,4 +1,6 @@
-<%= turbo_stream_from "data_crumbs" %>
+<% current_warehouses.each do |warehouse| %>
+  <%= turbo_stream_from warehouse, "data_crumbs" %>
+<% end %>
 
 <main class="container">
   <div class="header">
