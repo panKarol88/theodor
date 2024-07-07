@@ -3,7 +3,8 @@
 class DataCrumb < ApplicationRecord
   validates :content, presence: true
 
-  belongs_to :warehouse, inverse_of: :data_crumbs, optional: true
+  belongs_to :warehouse, inverse_of: :data_crumbs
+  has_many :users, through: :warehouse
 
   # alternative:
   # after_create_commit -> do

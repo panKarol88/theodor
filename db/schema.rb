@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_25_102224) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "warehouse_id"
+    t.bigint "warehouse_id", null: false
     t.index ["warehouse_id"], name: "index_data_crumbs_on_warehouse_id"
   end
 

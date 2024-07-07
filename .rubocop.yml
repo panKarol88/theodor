@@ -35,3 +35,9 @@ RSpec/NestedGroups:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+Layout/LineLength:
+    Max: 150
+
+Rails/NotNullColumn:
+    Enabled: false

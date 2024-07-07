@@ -14,6 +14,6 @@ RSpec.describe DataCrumb do
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to(:warehouse).optional }
+    it { is_expected.to belong_to(:warehouse) }
   end
 end

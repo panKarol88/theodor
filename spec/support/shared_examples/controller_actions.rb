@@ -4,6 +4,7 @@ shared_examples 'unauthorized request' do
   raise 'action is not defined' unless method_defined?(:action)
 
   it 'returns status different than success' do
-    expect(action).not_to be_successful
+    action
+    expect(response).to redirect_to('/users/sign_in')
   end
 end

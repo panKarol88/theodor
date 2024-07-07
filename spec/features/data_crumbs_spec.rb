@@ -5,21 +5,24 @@ require 'rails_helper'
 describe 'Data Crumbs', :js do
   describe 'authorized', :authorized do
     let(:authenticated_user) { create(:user) }
-
     let(:data_crumb) { DataCrumb.order(created_at: :desc).first }
+    let(:warehouse) { create(:warehouse, name: authenticated_user.id.to_s) }
 
-    before { create_list(:data_crumb, 3) }
+    before do
+      authenticated_user.warehouses << warehouse
+      create_list(:data_crumb, 3, warehouse:)
+    end
 
     describe 'List of data crumbs' do
       context 'with no params at all' do
         before { visit data_crumbs_path }
 
         it 'correct amount of data_crumbs' do
-          expect(page).to have_css('.data-crumb', count: DataCrumb.count)
+          expect(page).to have_css('.data-crumb', count: authenticated_user.data_crumbs.count)
         end
 
         it 'displays the correct list of all Data Crumb elements' do
-          DataCrumb.find_each do |data_crumb|
+          authenticated_user.data_crumbs.find_each do |data_crumb|
             expect(page).to have_css('.data-crumb', text: data_crumb.content)
           end
         end

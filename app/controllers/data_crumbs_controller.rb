@@ -4,7 +4,7 @@ class DataCrumbsController < ApplicationController
   before_action :set_data_crumb, only: %i[show edit update destroy]
 
   def index
-    @data_crumbs = DataCrumb.order(created_at: :desc)
+    @data_crumbs = current_user.data_crumbs.order(created_at: :desc)
   end
 
   def show; end
@@ -47,7 +47,7 @@ class DataCrumbsController < ApplicationController
   private
 
   def data_crumb_params
-    params.require(:data_crumb).permit(:content)
+    params.require(:data_crumb).permit(:content, :warehouse_id)
   end
 
   def set_data_crumb
