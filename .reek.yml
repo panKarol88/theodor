@@ -15,3 +15,6 @@ directories:
   'app/controllers**':
     InstanceVariableAssumption:
       enabled: false
+  '**/utils**':
+    UtilityFunction:
+      enabled: false

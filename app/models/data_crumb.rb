@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DataCrumb < ApplicationRecord
+  has_neighbors :embedding
   validates :content, presence: true
 
   belongs_to :warehouse, inverse_of: :data_crumbs

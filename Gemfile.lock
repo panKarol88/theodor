@@ -179,6 +179,8 @@ GEM
     minitest (5.24.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    neighbor (0.4.0)
+      activerecord (>= 6.1)
     net-imap (0.4.14)
       date
       net-protocol
@@ -393,6 +395,7 @@ DEPENDENCIES
   faker
   jbuilder
   jsbundling-rails
+  neighbor
   pg (~> 1.5, >= 1.5.6)
   pry-byebug
   puma (>= 5.0)
