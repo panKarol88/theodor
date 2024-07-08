@@ -1,24 +1,6 @@
-# README
+### Simple usage till now
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+DataCrumbs::Create.new(input: "my ball is on the tree", warehouse: Warehouse.find(3)).embed_and_create
+AiFeatures::Knowledge.new.answer_question(question: "Where's my ball dude?")
+```

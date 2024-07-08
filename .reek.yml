@@ -10,11 +10,16 @@ detectors:
     enabled: false
   TooManyStatements:
     max_statements: 10
+  LongParameterList:
+    max_params: 5
 
 directories:
   'app/controllers**':
     InstanceVariableAssumption:
       enabled: false
   '**/utils**':
+    UtilityFunction:
+      enabled: false
+  '**/services**':
     UtilityFunction:
       enabled: false
