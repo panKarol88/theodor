@@ -2,6 +2,7 @@
 
 class DataCrumbsController < ApplicationController
   before_action :set_data_crumb, only: %i[show edit update destroy]
+  before_action :set_warehouse, only: %i[create]
 
   def index
     @data_crumbs = current_user.data_crumbs.order(created_at: :desc)
@@ -16,7 +17,7 @@ class DataCrumbsController < ApplicationController
   def edit; end
 
   def create
-    @data_crumb = DataCrumb.new(data_crumb_params)
+    @data_crumb = DataCrumbs::Create.new(input: data_crumb_params[:content], warehouse: @warehouse).embed_and_initialize
     if @data_crumb.save
       respond_to do |format|
         notice = t('data_crumbs.flash.created')
@@ -57,5 +58,9 @@ class DataCrumbsController < ApplicationController
 
   def set_data_crumb
     @data_crumb = DataCrumb.find(params[:id])
+  end
+
+  def set_warehouse
+    @warehouse = current_warehouses.find_by(id: data_crumb_params[:warehouse_id])
   end
 end

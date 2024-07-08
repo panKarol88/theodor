@@ -8,6 +8,9 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -82,6 +85,12 @@ RSpec.configure do |config|
     raise 'authenticated_user is not defined' unless defined?(authenticated_user)
 
     sign_in(authenticated_user, scope: :user)
+  end
+
+  config.before do
+    open_ai_client_mock = instance_double(OpenAi::Client)
+    allow(open_ai_client_mock).to receive_messages(embed: (0...1536).map(&:to_f), chat_completion: 'Example chat bot response.')
+    allow(OpenAi::Client).to receive(:new).and_return(open_ai_client_mock)
   end
 
   Shoulda::Matchers.configure do |matchers_config|
