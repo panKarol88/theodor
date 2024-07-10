@@ -1,0 +1,11 @@
+.warehouse {
+  &__data_crumbs {
+    padding: var(--space-m);
+  }
+
+  &__data_crumb {
+    padding: var(--space-m);
+    margin: var(--space-xs);
+    border: 1px solid var(--color-primary-rotate);
+  }
+}

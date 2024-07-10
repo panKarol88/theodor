@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :data_crumbs
+  resources :warehouses, only: %i[show]
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 end

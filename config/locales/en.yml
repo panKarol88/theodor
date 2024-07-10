@@ -29,6 +29,8 @@
 
 en:
   hello: "Hello world"
+  warehouses:
+    warehouses: "Warehouses"
   data_crumbs:
     flash:
       created: "DataCrumb was successfully created."
