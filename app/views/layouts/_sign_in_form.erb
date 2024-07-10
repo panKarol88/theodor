@@ -1,0 +1,17 @@
+<%= form_for(User.new, url: user_session_path) do |f| %>
+  <div class='sign-in-form'>
+    <div class='sign-in-form-inputs'>
+      <div class='sign-in-form-input'>
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+      <div class='sign-in-form-input'>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: 'off' %>
+      </div>
+    </div>
+    <div class='sign-in-form-submit'>
+      <%= f.submit 'Sign in', class: 'btn btn--dark' %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+.sign-in-form {
+  display: flex;
+}
+
+.sign-in-form-inputs {
+  display: inline-flex;
+  padding: var(--space-xxs) var(--space-m);
+}
+
+.sign-in-form-input {
+  margin-right: var(--space-s);
+}
+
+.sign-in-form-submit {
+  display: inline-flex;
+}

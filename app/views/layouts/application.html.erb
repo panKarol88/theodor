@@ -15,6 +15,9 @@
     <div id="flash" class="flash">
       <%= render "layouts/flash" %>
     </div>
-    <%= yield %>
+
+    <% if user_signed_in? %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
