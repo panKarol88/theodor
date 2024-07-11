@@ -18,6 +18,7 @@ module Theodor
       helpers ::Theodor::Helpers::ErrorHandler
 
       mount DataCrumbs::API
+      mount Users::API
     end
   end
 end
