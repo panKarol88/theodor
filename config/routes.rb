@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :warehouses, only: %i[show]
 
   get 'up' => 'rails/health#show', as: :rails_health_check
+
+  mount Theodor::API => '/api/'
 end

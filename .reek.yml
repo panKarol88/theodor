@@ -12,6 +12,10 @@ detectors:
     max_statements: 10
   LongParameterList:
     max_params: 5
+  UncommunicativeModuleName:
+    enabled: false
+  InstanceVariableAssumption:
+    enabled: false
 
 directories:
   'app/controllers**':
@@ -23,3 +27,9 @@ directories:
   '**/services**':
     UtilityFunction:
       enabled: false
+  '**/helpers**':
+    UtilityFunction:
+      enabled: false
+    FeatureEnvy:
+      enabled: false
+

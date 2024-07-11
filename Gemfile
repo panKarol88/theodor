@@ -7,6 +7,7 @@ ruby '3.3.2'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise', '~> 4.9'
+gem 'devise-jwt'
 gem 'faker'
 gem 'jbuilder'
 gem 'jsbundling-rails'
@@ -20,6 +21,7 @@ gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 gem "neighbor"
+gem "grape", "~> 2.1"
 
 group :development, :test do
   gem 'brakeman'
