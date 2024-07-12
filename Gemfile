@@ -22,6 +22,7 @@ gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 gem "neighbor"
 gem "grape", "~> 2.1"
+gem 'grape-entity'
 
 group :development, :test do
   gem 'brakeman'

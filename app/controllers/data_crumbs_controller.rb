@@ -17,7 +17,7 @@ class DataCrumbsController < ApplicationController
   def edit; end
 
   def create
-    @data_crumb = DataCrumbs::Create.new(input: data_crumb_params[:content], warehouse: @warehouse).embed_and_initialize
+    @data_crumb = DataCrumbs::Builder.new(input: data_crumb_params[:content], warehouse: @warehouse).embed_and_initialize
     if @data_crumb.save
       respond_to do |format|
         notice = t('data_crumbs.flash.created')

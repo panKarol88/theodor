@@ -2,6 +2,8 @@
 
 module AiFeatures
   class Knowledge
+    include Helpers::LlmInterface
+
     def initialize(warehouse: nil)
       @warehouse = warehouse
     end
@@ -9,7 +11,7 @@ module AiFeatures
     def answer_question(question:)
       context = question_context(question)
       prompt = context + pre_question_prompt + question
-      LlmTools::Chat.new.submit(prompt:)
+      chat(prompt)
     end
 
     private

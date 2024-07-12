@@ -2,14 +2,15 @@
 
 module Context
   class KnowledgeCollector
+    include Helpers::LlmInterface
+
     def initialize(issue:, warehouse:)
       @issue = issue
       @warehouse = warehouse
     end
 
     def find_related_data_crumbs(limit: 1)
-      issue_embedding = LlmTools::Embedding.new(input: issue).embed
-      data_crumbs_collection.nearest_neighbors(:embedding, issue_embedding, distance: 'euclidean').first(limit)
+      data_crumbs_collection.nearest_neighbors(:embedding, embed(issue), distance: 'euclidean').first(limit)
     end
 
     private
