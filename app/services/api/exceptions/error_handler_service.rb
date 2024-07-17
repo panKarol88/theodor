@@ -34,7 +34,8 @@ module API
       def payload
         {
           error_type: exception.class.name&.split('::')&.last,
-          error_data:
+          error_data:,
+          backtrace: exception.backtrace
         }
       end
 

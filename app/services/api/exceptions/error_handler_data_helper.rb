@@ -3,8 +3,6 @@
 module API
   module Exceptions
     module ErrorHandlerDataHelper
-      VALIDATION_KEY_PREFIX = 'record_invalid'
-
       def api_standard_error_data
         { message: exception.message }
       end
@@ -28,7 +26,6 @@ module API
           errors.map do |error|
             {
               default_error_message: error.message,
-              error_translation_key: "#{VALIDATION_KEY_PREFIX}.#{error.type}",
               options: error.options.except(:value)
             }
           end
