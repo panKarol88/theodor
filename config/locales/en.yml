@@ -36,3 +36,8 @@ en:
       created: "DataCrumb was successfully created."
       updated: "DataCrumb  was successfully updated."
       destroyed: "DataCrumb was successfully destroyed."
+  prompt_decorators:
+    flash:
+      created: "PromptDecorator was successfully created."
+      updated: "PromptDecorator was successfully updated."
+      destroyed: "PromptDecorator was successfully destroyed."

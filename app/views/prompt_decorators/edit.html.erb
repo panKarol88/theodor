@@ -1,0 +1,3 @@
+<%= turbo_frame_tag @prompt_decorator do %>
+  <%= render "form", prompt_decorator: @prompt_decorator, locals: { warehouse_id: @warehouse.id } %>
+<% end %>

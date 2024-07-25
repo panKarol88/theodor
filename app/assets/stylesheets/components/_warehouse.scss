@@ -1,5 +1,13 @@
 .warehouse {
-  &__data_crumbs {
+  &__header {
+    margin: var(--space-xs);
+
+    h2 {
+      padding-bottom: var(--space-xs);
+    }
+  }
+
+  &__data_item {
     padding: var(--space-m);
   }
 
@@ -7,5 +15,9 @@
     padding: var(--space-m);
     margin: var(--space-xs);
     border: 1px solid var(--color-primary-rotate);
+
+    &__decorator_type, &__name {
+      font-weight: bold;
+    }
   }
 }

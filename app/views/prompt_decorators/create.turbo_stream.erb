@@ -1,0 +1,16 @@
+<%#= turbo_stream.prepend "prompt_decorators", partial: 'prompt_decorators/prompt_decorator', locals: { prompt_decorator: @prompt_decorator, locals: { warehouse_id: @warehouse.id } } %>
+
+<%#= turbo_stream.after @prompt_decorator_pointer,
+                       partial: 'prompt_decorators/prompt_decorator',
+                       locals: {
+                         prompt_decorator: @prompt_decorator,
+                         locals: {
+                           warehouse_id: @warehouse.id
+                         }
+                       } %>
+
+<%= turbo_stream.replace "prompt_decorators" do %>
+  <%= render @prompt_decorators, locals: { warehouse_id: @warehouse.id } %>
+<% end %>
+<%= turbo_stream.update PromptDecorator.new, "" %>
+<%= render_turbo_stream_flash_messages %>

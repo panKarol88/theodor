@@ -2,7 +2,20 @@
   <div class="header">
     <h1><%= @warehouse.name %></h1>
   </div>
-  <div class="warehouse__data_crumbs">
+  <div class="warehouse__data_item">
+    <div class="warehouse__header">
+      <h2>Prompt Decorators</h2>
+      <%= link_to "New Prompt Decorator", new_prompt_decorator_path(warehouse_id: @warehouse.id),
+                  data: { turbo_frame: dom_id(PromptDecorator.new) },
+                  class: "btn btn--primary" %>
+    </div>
+    <%= turbo_frame_tag PromptDecorator.new %>
+    <%= turbo_frame_tag "prompt_decorators" do %>
+      <%= render @prompt_decorators, locals: { warehouse_id: @warehouse.id } %>
+    <% end %>
+  </div>
+  <div class="warehouse__data_item">
+    <h2>Data Crumbs</h2>
     <% @data_crumbs.each do |data_crumb| %>
       <div class="warehouse__data_crumb">
         <%= data_crumb.content[0..200] ... %>

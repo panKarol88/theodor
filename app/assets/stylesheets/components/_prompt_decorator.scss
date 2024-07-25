@@ -1,0 +1,27 @@
+.simple_form.prompt_decorator.form {
+  display: block;
+}
+
+.prompt-decorator {
+  &__form {
+    padding: var(--space-m);
+
+    .__item {
+      padding: var(--space-s) var(--space-s) var(--space-s) 0;
+    }
+
+    .__name_row {
+      display: inline-flex;
+
+      .__dropdown {
+        display: grid;
+      }
+    }
+
+    .__value_row {
+      textarea {
+        field-sizing: content;
+      }
+    }
+  }
+}

@@ -17,6 +17,7 @@
   &__actions {
     display: flex;
     flex: 0 0 auto;
+    padding-top: var(--space-xs);
     align-self: flex-start;
     gap: var(--space-xs);
   }

@@ -1,0 +1,21 @@
+<%= turbo_frame_tag prompt_decorator do %>
+  <div class="warehouse__data_crumb">
+    <div class="warehouse__data_crumb__decorator_type">
+      <%= prompt_decorator.decorator_type %>
+    </div>
+    <div class="warehouse__data_crumb__name">
+      <%= prompt_decorator.name %>
+    </div>
+    <div>
+      <%= simple_format(prompt_decorator.value) %>
+    </div>
+    <div class="data-crumb__actions">
+      <%= button_to "Delete",
+                    prompt_decorator_path(prompt_decorator),
+                    method: :delete,
+                    form: { data: { turbo_confirm: 'Sure?' } },
+                    class: "btn btn--primary" %>
+      <%= link_to "Edit", edit_prompt_decorator_path(prompt_decorator, warehouse_id: locals[:warehouse_id]), class: "btn btn--light" %>
+    </div>
+  </div>
+<% end %>
