@@ -28,4 +28,5 @@ class PromptDecorator < ApplicationRecord
   has_and_belongs_to_many :warehouses
 
   scope :ordered_by_decorator_type, -> { in_order_of(:decorator_type, DECORATOR_TYPES.values).order(:created_at) }
+  scope :type, ->(type) { where(decorator_type: DECORATOR_TYPES[type]) }
 end

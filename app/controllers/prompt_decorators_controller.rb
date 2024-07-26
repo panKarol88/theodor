@@ -55,7 +55,7 @@ class PromptDecoratorsController < ApplicationController
 
     return if warehouse_id.blank?
 
-    @set_warehouse = Warehouse.find!(warehouse_id)
+    @warehouse = Warehouse.find(warehouse_id)
   end
 
   def prompt_decorator_params
