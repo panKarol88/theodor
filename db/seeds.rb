@@ -6,8 +6,10 @@ owner_user = User.find_or_initialize_by(email: ENV.fetch('OWNER_EMAIL_ADDRESS', 
 owner_user.update!(password: ENV.fetch('OWNER_PASSWORD', nil)) if owner_user.new_record?
 owner_warehouse = Warehouse.find_or_create_by!(name: ENV.fetch('OWNER_WAREHOUSE', nil))
 
-owner_warehouse.prompt_decorators.find_or_create_by(name: 'theodor_role') do |prompt_decorator|
-  prompt_decorator.decorator_type = 'role'
+owner_storing_feature = owner_warehouse.features.find_or_create_by!(name: 'owner_storing_feature', description: 'Owner Storing Feature')
+
+owner_storing_feature.prompt_decorators.find_or_create_by(name: 'theodor_role') do |prompt_decorator|
+  prompt_decorator.priority = 0
   prompt_decorator.value = 'Your name is Theodor. You are very kind, polite and helpful software system. ' \
                            'You are always ready to help and assist the user. ' \
                            'Think of you as a butler in the mansion. ' \
@@ -15,14 +17,14 @@ owner_warehouse.prompt_decorators.find_or_create_by(name: 'theodor_role') do |pr
                            'You talk like TARS from the Interstellar movie.'
 end
 
-owner_warehouse.prompt_decorators.find_or_create_by(name: 'pre_store_info_about_the_owner') do |prompt_decorator|
-  prompt_decorator.decorator_type = 'pre_request'
+owner_storing_feature.prompt_decorators.find_or_create_by(name: 'pre_store_info_about_the_owner') do |prompt_decorator|
+  prompt_decorator.priority = 1
   prompt_decorator.value = 'All the following information is about the Karol Kamiński. The owner of this system. ' \
                            'Whenever it says "I" or "me" it refers to Karol Kamiński.'
 end
 
-owner_warehouse.prompt_decorators.find_or_create_by(name: 'compress_input') do |prompt_decorator|
-  prompt_decorator.decorator_type = 'edit_instructions'
+owner_storing_feature.prompt_decorators.find_or_create_by(name: 'compress_input') do |prompt_decorator|
+  prompt_decorator.priority = 2
   prompt_decorator.value = 'Read the following text carefully. Try to understand the meaning of the following text. ' \
                            'And then summarize it all as short as possible ' \
                            'to not miss any fact from the following text. ' \
@@ -30,14 +32,15 @@ owner_warehouse.prompt_decorators.find_or_create_by(name: 'compress_input') do |
                            '\n ### FOLLOWING TEXT ### \n {{text}} \n ### END OF FOLLOWING TEXT ###'
 end
 
-owner_warehouse.prompt_decorators.find_or_create_by(name: 'post_store_info_about_the_owner') do |prompt_decorator|
-  prompt_decorator.decorator_type = 'post_request'
+owner_storing_feature.prompt_decorators.find_or_create_by(name: 'post_store_info_about_the_owner') do |prompt_decorator|
+  prompt_decorator.priority = 3
   prompt_decorator.value = 'Return only raw information. Do not add any additional comments or thoughts nor cheers or welcomes of any kind.'
 end
 
 work_warehouse = Warehouse.find_or_create_by!(name: ENV.fetch('WORK_WAREHOUSE', nil))
-x = work_warehouse.prompt_decorators.find_or_create_by(name: 'compress_work_input') do |prompt_decorator|
-  prompt_decorator.decorator_type = 'edit_instructions'
+work_storing_feature = work_warehouse.features.find_or_create_by!(name: 'work_storing_feature', description: 'Work Storing Feature')
+x = work_storing_feature.prompt_decorators.find_or_create_by(name: 'compress_work_input') do |prompt_decorator|
+  prompt_decorator.priority = 0
   prompt_decorator.value = 'Read the following text carefully. Try to understand the meaning of the following text. ' \
                            'And then summarize it all.' \
                            'Do not miss any fact from the following text. ' \

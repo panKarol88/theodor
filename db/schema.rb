@@ -15,10 +15,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
   enable_extension "plpgsql"
   enable_extension "vector"
 
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "prompt_decorator_types", ["pre_question", "post_question", "pre_request", "post_request", "context_wrapper", "edit_instructions", "format_instructions", "example", "role", "translation", "uncategorized"]
-
   create_table "data_crumbs", force: :cascade do |t|
     t.text "content", null: false
     t.datetime "created_at", null: false
@@ -28,23 +24,32 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
     t.index ["warehouse_id"], name: "index_data_crumbs_on_warehouse_id"
   end
 
+  create_table "features", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_features_on_name", unique: true
+  end
+
+  create_table "features_warehouses", id: false, force: :cascade do |t|
+    t.bigint "feature_id", null: false
+    t.bigint "warehouse_id", null: false
+    t.index ["feature_id"], name: "index_features_warehouses_on_feature_id"
+    t.index ["warehouse_id"], name: "index_features_warehouses_on_warehouse_id"
+  end
+
   create_table "prompt_decorators", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
     t.string "value", null: false
-    t.enum "decorator_type", default: "uncategorized", null: false, enum_type: "prompt_decorator_types"
+    t.bigint "feature_id", null: false
+    t.integer "priority", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["decorator_type"], name: "index_prompt_decorators_on_decorator_type"
+    t.index ["feature_id"], name: "index_prompt_decorators_on_feature_id"
     t.index ["name"], name: "index_prompt_decorators_on_name", unique: true
-  end
-
-  create_table "prompt_decorators_warehouses", id: false, force: :cascade do |t|
-    t.bigint "warehouse_id", null: false
-    t.bigint "prompt_decorator_id", null: false
-    t.index ["prompt_decorator_id"], name: "index_prompt_decorators_warehouses_on_prompt_decorator_id"
-    t.index ["warehouse_id", "prompt_decorator_id"], name: "idx_on_warehouse_id_prompt_decorator_id_de008db3f8", unique: true
-    t.index ["warehouse_id"], name: "index_prompt_decorators_warehouses_on_warehouse_id"
+    t.index ["priority", "feature_id"], name: "index_prompt_decorators_on_priority_and_feature_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -74,4 +79,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
   end
 
   add_foreign_key "data_crumbs", "warehouses"
+  add_foreign_key "prompt_decorators", "features"
 end

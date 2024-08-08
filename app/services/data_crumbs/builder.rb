@@ -5,13 +5,14 @@ module DataCrumbs
     include Helpers::LlmInterface
     include Helpers::PromptInterface
 
-    def initialize(input:, warehouse:)
+    def initialize(input:, warehouse:, feature:)
       @input = input
       @warehouse = warehouse
+      @feature = feature
     end
 
     def prepare_input
-      return self if warehouse.prompt_decorators.blank?
+      return self if prompt_decorators.blank?
 
       @input = chat(edited_input_prompt)
 
@@ -28,11 +29,15 @@ module DataCrumbs
 
     private
 
-    attr_reader :input, :warehouse, :data_crumb
+    attr_reader :input, :warehouse, :feature, :data_crumb
+
+    def prompt_decorators
+      @prompt_decorators ||= feature.prompt_decorators
+    end
 
     def edited_input_prompt
       prompt = ''
-      warehouse.prompt_decorators.each do |prompt_decorator|
+      prompt_decorators.each do |prompt_decorator|
         prompt = decorate(prompt:, prompt_decorator:, input:)
       end
 

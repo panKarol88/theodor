@@ -6,8 +6,16 @@ class ApplicationController < ActionController::Base
   private
 
   def current_warehouses
-    @current_warehouses ||= current_user.warehouses if user_signed_in?
+    return unless user_signed_in?
+
+    @current_warehouses ||= current_user.warehouses
   end
 
-  helper_method :current_warehouses
+  def current_features
+    return unless user_signed_in?
+
+    @current_features ||= Feature.joins(:warehouses).where(warehouses: current_warehouses)
+  end
+
+  helper_method :current_warehouses, :current_features
 end

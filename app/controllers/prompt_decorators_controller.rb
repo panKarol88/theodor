@@ -2,7 +2,7 @@
 
 class PromptDecoratorsController < ApplicationController
   before_action :set_prompt_decorator, only: %i[destroy edit update]
-  before_action :set_warehouse
+  before_action :set_feature
 
   def new
     @prompt_decorator = PromptDecorator.new
@@ -12,10 +12,10 @@ class PromptDecoratorsController < ApplicationController
 
   def create
     @prompt_decorator = PromptDecorator.new(prompt_decorator_params)
-    @prompt_decorator.warehouses << @warehouse if @warehouse.present?
-    @prompt_decorators = @warehouse.prompt_decorators.ordered_by_decorator_type
 
     if @prompt_decorator.save
+      @prompt_decorators = @feature.prompt_decorators.priority_ordered
+
       respond_to do |format|
         notice = t('prompt_decorators.flash.created')
         format.turbo_stream { flash.now[:notice] = notice }
@@ -27,6 +27,8 @@ class PromptDecoratorsController < ApplicationController
 
   def update
     if @prompt_decorator.update(prompt_decorator_params)
+      @prompt_decorators = @feature.prompt_decorators.priority_ordered
+
       respond_to do |format|
         notice = t('prompt_decorators.flash.updated')
         format.turbo_stream { flash.now[:notice] = notice }
@@ -50,15 +52,15 @@ class PromptDecoratorsController < ApplicationController
     @prompt_decorator = PromptDecorator.find(params[:id])
   end
 
-  def set_warehouse
-    warehouse_id = params[:warehouse_id] || params[:prompt_decorator].try('[]', :warehouse_id)
+  def set_feature
+    feature_id = params[:feature_id] || params[:prompt_decorator].try('[]', :feature_id)
 
-    return if warehouse_id.blank?
+    return if feature_id.blank?
 
-    @warehouse = Warehouse.find(warehouse_id)
+    @feature = Feature.find(feature_id)
   end
 
   def prompt_decorator_params
-    params.require(:prompt_decorator).permit(:value, :name, :decorator_type)
+    params.require(:prompt_decorator).permit(:value, :name, :feature_id, :priority)
   end
 end

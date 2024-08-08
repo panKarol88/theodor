@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :data_crumbs
   resources :warehouses, only: %i[show]
   resources :prompt_decorators, only: %i[destroy edit update new create]
+  resources :features, only: %i[show]
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 
