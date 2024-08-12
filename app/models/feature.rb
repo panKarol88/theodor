@@ -8,4 +8,8 @@ class Feature < ApplicationRecord
 
   has_many :prompt_decorators, dependent: :destroy
   has_and_belongs_to_many :warehouses
+
+  def process(input)
+    Features::BaseFeature.new(feature_record: self, input:).process
+  end
 end

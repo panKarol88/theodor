@@ -22,7 +22,7 @@ class DataCrumbsController < ApplicationController
       input: data_crumb_params[:content],
       warehouse: @warehouse,
       feature: @feature
-    ).embed_and_initialize
+    ).prepare_input.embed_and_initialize
 
     if @data_crumb.save
       respond_to do |format|

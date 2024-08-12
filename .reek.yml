@@ -27,7 +27,7 @@ directories:
   '**/services**':
     UtilityFunction:
       enabled: false
-  '**/helpers**':
+  '**/**/helpers**':
     UtilityFunction:
       enabled: false
     FeatureEnvy:
