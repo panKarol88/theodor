@@ -2,13 +2,12 @@
 
 module Theodor
   module V1
-    module DataCrumbs
+    module Prompts
       class API < Theodor::V1::API
         helpers ::Theodor::Helpers::KnowledgeAPI
 
-        resource :data_crumbs do
-          mount Theodor::V1::DataCrumbs::Index
-          mount Theodor::V1::DataCrumbs::Create
+        resource :prompts do
+          mount Theodor::V1::Prompts::Question
         end
       end
     end

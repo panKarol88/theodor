@@ -6,25 +6,19 @@ owner_user = User.find_or_initialize_by(email: ENV.fetch('OWNER_EMAIL_ADDRESS', 
 owner_user.update!(password: ENV.fetch('OWNER_PASSWORD', nil)) if owner_user.new_record?
 owner_warehouse = Warehouse.find_or_create_by!(name: ENV.fetch('OWNER_WAREHOUSE', nil))
 
-owner_storing_feature = owner_warehouse.features.find_or_create_by!(name: 'owner_storing_feature', description: 'Owner Storing Feature')
-
-owner_storing_feature.prompt_decorators.find_or_create_by(name: 'theodor_role') do |prompt_decorator|
-  prompt_decorator.priority = 0
-  prompt_decorator.value = 'Your name is Theodor. You are very kind, polite and helpful software system. ' \
-                           'You are always ready to help and assist the user. ' \
-                           'Think of you as a butler in the mansion. ' \
-                           'You are always ready to help and assist the Karol Kamiński, the owner of this system. ' \
-                           'You talk like TARS from the Interstellar movie.'
+owner_storing_feature = owner_warehouse.features.find_or_create_by!(name: 'owner_storing_feature') do |feature|
+  feature.description = 'Owner Storing Feature'
+  feature.store_results = true
 end
 
 owner_storing_feature.prompt_decorators.find_or_create_by(name: 'pre_store_info_about_the_owner') do |prompt_decorator|
-  prompt_decorator.priority = 1
+  prompt_decorator.priority = 0
   prompt_decorator.value = 'All the following information is about the Karol Kamiński. The owner of this system. ' \
                            'Whenever it says "I" or "me" it refers to Karol Kamiński.'
 end
 
 owner_storing_feature.prompt_decorators.find_or_create_by(name: 'compress_input') do |prompt_decorator|
-  prompt_decorator.priority = 2
+  prompt_decorator.priority = 1
   prompt_decorator.value = 'Read the following text carefully. Try to understand the meaning of the following text. ' \
                            'And then summarize it all as short as possible ' \
                            'to not miss any fact from the following text. ' \
@@ -33,9 +27,47 @@ owner_storing_feature.prompt_decorators.find_or_create_by(name: 'compress_input'
 end
 
 owner_storing_feature.prompt_decorators.find_or_create_by(name: 'post_store_info_about_the_owner') do |prompt_decorator|
-  prompt_decorator.priority = 3
+  prompt_decorator.priority = 2
   prompt_decorator.value = 'Return only raw information. Do not add any additional comments or thoughts nor cheers or welcomes of any kind.'
 end
+
+owner_question_feature = owner_warehouse.features.find_or_create_by!(name: 'owner_question_feature', description: 'Owner Question Feature')
+
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'theodor_role') do |prompt_decorator|
+  prompt_decorator.priority = 0
+  prompt_decorator.value = 'Your name is Theodor. You are very kind, polite and helpful software system. ' \
+                           'You are always ready to help and assist the user. ' \
+                           'Think of you as a butler in the mansion. ' \
+                           'You are always ready to help and assist the Karol Kamiński, the owner of this system. ' \
+                           'You talk like TARS from the Interstellar movie.'
+end
+
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'karol_question_guide') do |prompt_decorator|
+  prompt_decorator.priority = 1
+  prompt_decorator.value = 'Take a deep breath and calmly think about the question. ' \
+                           'Take your time and read the context carefully. Line after line. ' \
+                           'Please consider the given context and answer the following question as shortly as possible. ' \
+                           'If you are less than a 75% sure about the answer tell that you are not sure with one short sentence.'
+end
+
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'karol_question_context') do |prompt_decorator|
+  prompt_decorator.priority = 2
+  prompt_decorator.value = '### CONTEXT ## \n {{context}} \n ### END OF CONTEXT ###'
+end
+
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'karol_question_text') do |prompt_decorator|
+  prompt_decorator.priority = 3
+  prompt_decorator.value = '### QUESTION ## \n {{text}} \n ######################'
+end
+
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'funny_prompt') do |prompt_decorator|
+  prompt_decorator.priority = 4
+  prompt_decorator.value = 'Try to answer with some sense of humor.'
+end
+
+# ---------------------------------------
+# ---------------- WORK -----------------
+# ---------------------------------------
 
 work_warehouse = Warehouse.find_or_create_by!(name: ENV.fetch('WORK_WAREHOUSE', nil))
 work_storing_feature = work_warehouse.features.find_or_create_by!(name: 'work_storing_feature', description: 'Work Storing Feature')

@@ -5,6 +5,7 @@ class AddFeatures < ActiveRecord::Migration[7.1]
     create_table :features do |t|
       t.string :name, null: false, index: { unique: true }
       t.string :description
+      t.boolean :store_results, default: false, null: false
       t.timestamps
     end
 
