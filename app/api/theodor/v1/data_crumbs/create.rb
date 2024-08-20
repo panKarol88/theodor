@@ -19,7 +19,7 @@ module Theodor
         post do
           data_crumb = Features::Feature.new(feature_record: feature, input:, warehouse:).process
 
-          present data_crumb, with: API::Theodor::Entities::DataCrumb::Create
+          present data_crumb, with: API::Theodor::Entities::DataCrumb::DataCrumb
         end
       end
     end

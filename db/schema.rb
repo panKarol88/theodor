@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
   create_table "features", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
-    t.boolean "store_results", default: false
+    t.boolean "store_results", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_features_on_name", unique: true
@@ -74,6 +74,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
 
   create_table "warehouses", force: :cascade do |t|
     t.string "name", null: false
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_warehouses_on_name", unique: true

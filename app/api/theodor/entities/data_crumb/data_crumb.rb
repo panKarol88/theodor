@@ -3,7 +3,7 @@
 module Theodor
   module Entities
     module DataCrumb
-      class Create < Grape::Entity
+      class DataCrumb < Grape::Entity
         expose :id, documentation: { type: 'string', desc: 'DataCrumb id' }
         expose :content, documentation: { type: 'string', desc: 'DataCrumb content' }
         expose :warehouse_id, documentation: { type: 'string', desc: 'DataCrumb warehouse id' }

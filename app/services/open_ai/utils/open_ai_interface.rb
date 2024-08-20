@@ -24,7 +24,7 @@ module OpenAi
           max_tokens: 3000, # [integer] between 1 and 4096
           n: 1, # [integer] how many chat completion choices to generate
           presence_penalty: 0.2, # [float] between -2.0 and 2.0
-          response_format: { type: 'text' }, # [object] { type: 'json_object' } or { type: 'text' }
+          response_format: { type: 'text' }, # [object] { type: 'json_object' } or { type: 'text' } or { type: 'json_schema', json_schema: { ... } }
           seed: nil, # [integer] seed for random number generation
           service_tier: nil,
           stop: nil, # [string / array] up to 4 sequences where the API will stop generating further tokens

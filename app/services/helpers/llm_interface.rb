@@ -9,5 +9,9 @@ module Helpers
     def chat(prompt)
       LlmTools::Chat.new.submit(prompt:)
     end
+
+    def resource_bet(prompt)
+      LlmTools::ResourceBet.new.submit(prompt:)
+    end
   end
 end

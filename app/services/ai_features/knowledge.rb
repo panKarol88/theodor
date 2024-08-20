@@ -4,8 +4,9 @@ module AiFeatures
   class Knowledge
     include Helpers::LlmInterface
 
-    def initialize(input:, warehouse: nil, feature: nil)
+    def initialize(input:, user:, warehouse: nil, feature: nil)
       @input = input
+      @user = user
       @warehouse = warehouse
       @feature = feature
 
@@ -13,12 +14,12 @@ module AiFeatures
     end
 
     def process
-      feature.process(input, warehouse)
+      feature.process(input:, warehouse:)
     end
 
     private
 
-    attr_reader :input, :warehouse, :feature
+    attr_reader :input, :user, :warehouse, :feature
 
     def post_initialize
       @warehouse ||= warehouse_based_on_input
@@ -26,15 +27,11 @@ module AiFeatures
     end
 
     def warehouse_based_on_input
-      # in future when warehouse is not provided, model will figure it out on its own
-      # till then - raise an error
-      raise 'Warehouse is required'
+      Features::ResourceFeature.new(input:, resource_collection: user.warehouses).process
     end
 
     def feature_based_on_input
-      # in future when feature is not provided, model will figure it out on its own
-      # till then - raise an error
-      raise 'Feature is required'
+      Features::ResourceFeature.new(input:, resource_collection: warehouse.features).process
     end
   end
 end

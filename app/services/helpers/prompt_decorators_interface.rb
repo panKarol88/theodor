@@ -2,6 +2,8 @@
 
 module Helpers
   module PromptDecoratorsInterface
+    RELATED_DATA_CRUMBS_LIMIT = 5
+
     def input_context(issue:)
       @input_context ||= begin
         context_collector = Context::KnowledgeCollector.new(issue:, warehouse:)
@@ -18,6 +20,11 @@ module Helpers
       if decoration.include?('{{context}}')
         input_context = input_context(issue: input)
         return decoration.gsub('{{context}}', input_context)
+      end
+
+      if decoration.include?('{{resources}}')
+        resources = resource_collection.map { |record| { name: record.name, description: record.description } }
+        return decoration.gsub('{{resources}}', resources.to_s)
       end
 
       decoration

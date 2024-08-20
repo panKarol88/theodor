@@ -9,7 +9,13 @@ class Feature < ApplicationRecord
   has_many :prompt_decorators, dependent: :destroy
   has_and_belongs_to_many :warehouses
 
-  def process(input, warehouse)
-    Features::Feature.new(feature_record: self, input:, warehouse:).process
+  def process(input:, warehouse: nil)
+    feature_service.new(feature_record: self, input:, warehouse:).process
+  end
+
+  private
+
+  def feature_service
+    "Features::#{name.camelize}".safe_constantize.presence || Features::Feature
   end
 end

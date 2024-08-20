@@ -2,12 +2,10 @@
 
 module Features
   class Feature
-    RELATED_DATA_CRUMBS_LIMIT = 5
-
     include ::Helpers::LlmInterface
     include ::Helpers::PromptDecoratorsInterface
 
-    def initialize(feature_record:, input:, warehouse:)
+    def initialize(feature_record:, input:, warehouse: nil)
       @feature_record = feature_record
       @input = input
       @warehouse = warehouse
