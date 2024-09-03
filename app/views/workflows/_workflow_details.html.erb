@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "workflow_features#{@workflow.id}" do %>
+  <% @workflow.workflows_features.includes(feature: :prompt_decorators).priority_ordered.each do |workflows_feature| %>
+    <%= render "workflow_feature", locals: { workflows_feature: } %>
+  <% end %>
+<% end %>

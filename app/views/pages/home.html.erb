@@ -10,4 +10,11 @@
   <div class="home-section-content">
     <%= link_to "All DataCrumbs", data_crumbs_path, class: "btn btn--dark" %>
   </div>
+
+  <h1>Workflows</h1>
+  <div class="home-section-content">
+    <% current_user.workflows.each do |workflow| %>
+      <%= link_to workflow.name, workflow, class: "btn btn--dark" %>
+    <% end %>
+  </div>
 </main>

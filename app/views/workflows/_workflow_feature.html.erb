@@ -1,0 +1,31 @@
+<div>
+  <% workflows_feature = locals[:workflows_feature] %>
+  <% feature = workflows_feature.feature %>
+
+  <div class="warehouse__data_crumb">
+    <div class="warehouse__data_crumb__name">
+      <div>
+        <%= feature.name %>
+      </div>
+      <div>
+        <%= workflows_feature.priority %>
+      </div>
+      <div>
+        <%= workflows_feature.properties %>
+      </div>
+      <div>
+        <% feature.prompt_decorators.priority_ordered.each do |prompt_decorator| %>
+          <p>
+            <%= prompt_decorator.value %>
+          </p>
+        <% end %>
+      </div>
+
+      <%= button_to "Delete",
+                    "/workflows/#{@workflow.id}/workflows_features/#{workflows_feature.id}",
+                    method: :delete,
+                    form: { data: { turbo_confirm: 'Sure?' } },
+                    class: "btn btn--primary" %>
+    </div>
+  </div>
+</div>

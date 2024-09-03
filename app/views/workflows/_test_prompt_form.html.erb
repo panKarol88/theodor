@@ -1,0 +1,9 @@
+<%= form_with url: process_input_workflow_path(@workflow), method: :post do |f| %>
+  <div>
+    <p>Test prompt:</p>
+    <%= f.text_area :input_text, rows: 5, input_html: { autofocus: true } %>
+  </div>
+  <div>
+    <%= f.submit "Submit" %>
+  </div>
+<% end %>

@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_and_belongs_to_many :warehouses, -> { distinct }
   has_many :data_crumbs, through: :warehouses
+  has_many :workflows, dependent: :nullify
 end

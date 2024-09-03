@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "new_feature_workflow" do %>
+  <%= select_tag :feature_id, options_from_collection_for_select(current_features, :id, :name), {
+    include_blank: "Select a feature",
+    data: {
+      controller: "workflows",
+      action: "workflows#featureSelect",
+      workflow_id: @workflow.id,
+    },
+  } %>
+<% end %>

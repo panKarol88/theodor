@@ -1,0 +1,22 @@
+.workflow {
+  &__container {
+    width: 100%;
+  }
+
+  &__playground {
+    display: flex;
+  }
+
+  &__chain-section {
+    color: red;
+    width: 50%;
+    padding: var(--space-xs);
+  }
+
+  &__test-section {
+    color: blue;
+    width: 50%;
+    padding: var(--space-xs);
+    border-left: solid 1px var(--color-dark);
+  }
+}

@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "new_feature_workflow" do %>
+  <%= render "new_feature_section" %>
+<% end %>
+
+<%= turbo_stream.replace "workflow_features#{@workflow.id}" do %>
+  <%= render "workflow_details" %>
+<% end %>

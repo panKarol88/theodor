@@ -1,0 +1,43 @@
+<%= turbo_frame_tag "new_feature_workflow" do %>
+  <%= form_with url: create_feature_workflow_path(@workflow), method: :post do |f| %>
+    <div>
+      <%= f.collection_select :feature_id, current_features, :id, :name,
+                              {
+                                prompt: "Select a feature",
+                                selected: @feature.id,
+                              }, {
+        data: {
+          controller: "workflows",
+          action: "workflows#featureSelect",
+          workflow_id: @workflow.id,
+        },
+      } %>
+    </div>
+
+    <% if @feature.resourceable? %>
+      <div>
+        <%= f.select :resource_class, ["Warehouse", "Feature"], { prompt: "Select a Resource" } %>
+      </div>
+    <% end %>
+
+    <div>
+      <div>
+        <%= @feature.id %>
+      </div>
+      <div>
+        <%= @feature.name %>
+      </div>
+      <div>
+        <%= @feature.description %>
+      </div>
+      <div>
+        <% @feature.prompt_decorators.priority_ordered.each do |prompt_decorator| %>
+          <p>--------------------------</p>
+          <%= prompt_decorator.value %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.submit "Submit" %>
+  <% end %>
+<% end %>

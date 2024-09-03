@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_20_103403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -80,6 +80,30 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_134430) do
     t.index ["name"], name: "index_warehouses_on_name", unique: true
   end
 
+  create_table "workflows", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_workflows_on_name", unique: true
+    t.index ["user_id"], name: "index_workflows_on_user_id"
+  end
+
+  create_table "workflows_features", force: :cascade do |t|
+    t.bigint "workflow_id", null: false
+    t.bigint "feature_id", null: false
+    t.integer "priority", default: 0, null: false
+    t.jsonb "properties", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feature_id"], name: "index_workflows_features_on_feature_id"
+    t.index ["workflow_id"], name: "index_workflows_features_on_workflow_id"
+  end
+
   add_foreign_key "data_crumbs", "warehouses"
   add_foreign_key "prompt_decorators", "features"
+  add_foreign_key "workflows", "users"
+  add_foreign_key "workflows_features", "features"
+  add_foreign_key "workflows_features", "workflows"
 end
