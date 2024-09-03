@@ -47,9 +47,7 @@ class WorkflowsController < ApplicationController
   end
 
   def set_workflow
-    @set_workflow ||= begin
-      workflow_id = params[:id]
-      current_user.workflows.find(workflow_id) if workflow_id.present?
-    end
+    workflow_id = params[:id]
+    @workflow = current_user.workflows.find(workflow_id) if workflow_id.present?
   end
 end
