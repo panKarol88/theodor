@@ -12,7 +12,8 @@ module Helpers
       end
     end
 
-    def parse_prompt_decorator(prompt_decorator:, input:)
+    # TODO: Refactor
+    def parse_prompt_decorator(prompt_decorator:, input:) # rubocop:disable Metrics/AbcSize
       decoration = prompt_decorator.value
 
       return decoration.gsub('{{text}}', input) if decoration.include?('{{text}}')
@@ -26,6 +27,8 @@ module Helpers
         resources = resource_collection.map { |record| { name: record.name, description: record.description } }
         return decoration.gsub('{{resources}}', resources.to_s)
       end
+
+      return decoration.gsub('{{probability_properties}}', probability_properties.to_s) if decoration.include?('{{probability_properties}}')
 
       decoration
     end

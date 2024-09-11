@@ -14,9 +14,15 @@
       } %>
     </div>
 
-    <% if @feature.resourceable? %>
+    <% if @feature.name == 'resource_feature' %>
       <div>
         <%= f.select :resource_class, ["Warehouse", "Feature"], { prompt: "Select a Resource" } %>
+      </div>
+    <% end %>
+
+    <% if @feature.name == 'probability_feature' %>
+      <div>
+        <%= f.number_field :probability_threshold, step: 'any', value: -0.02 %>
       </div>
     <% end %>
 

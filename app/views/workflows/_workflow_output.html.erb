@@ -1,0 +1,24 @@
+<%= turbo_frame_tag "workflow_output_#{@workflow.id}" do %>
+  <% if @output.present? %>
+    <div>
+      <h2>Thread LOG:</h2>
+      <% @output[:thread_log].each do |thread_log| %>
+        <% thread_log.each do |key, value| %>
+            <p>
+              <b><%= "#{key}:" %></b>
+              <%= "#{value}" %>
+            </p>
+        <% end %>
+        <p>-----------------------</p>
+      <% end %>
+    </div>
+
+    <div>
+      <p>-----------------------</p>
+      <%= @output[:output] %>
+      <p>-----------------------</p>
+    </div>
+   <% else %>
+    </div>
+  <% end %>
+<% end %>

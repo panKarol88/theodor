@@ -17,7 +17,7 @@ class WorkflowsController < ApplicationController
 
   def create_feature
     feature_id = params[:feature_id]
-    Features::WorkflowHandler.new(workflow: @workflow, feature_id:, **feature_params).assign_feature
+    Workflows::WorkflowHandler.new(workflow: @workflow).assign_feature(feature_id:, **feature_params)
 
     respond_to do |format|
       format.turbo_stream
@@ -33,7 +33,13 @@ class WorkflowsController < ApplicationController
   end
 
   def process_input
-    @input_text = process_input_params[:input_text]
+    input = process_input_params[:input_text]
+
+    @output = Workflows::WorkflowHandler.new(workflow: @workflow).process_input(input:)
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
@@ -43,7 +49,7 @@ class WorkflowsController < ApplicationController
   end
 
   def feature_params
-    params.permit(:resource_class)
+    params.permit(:resource_class, :probability_threshold)
   end
 
   def set_workflow

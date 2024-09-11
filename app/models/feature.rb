@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class Feature < ApplicationRecord
-  include Helpers::ValidationHelper
-
-  validates :name, presence: true, uniqueness: true
-  validate :name_is_snakecase
+  include Interface::ResourceableHelper
 
   has_many :prompt_decorators, dependent: :destroy
   has_many :workflows_features, dependent: :destroy
@@ -13,14 +10,12 @@ class Feature < ApplicationRecord
 
   scope :priority_ordered, -> { order(:priority) }
 
-  def process(input:, warehouse: nil)
-    feature_service.new(feature_record: self, input:, warehouse:).process
+  def process(thread_object:, user:, feature_properties: {})
+    feature_service.new(feature_record: self, thread_object:, user:, feature_properties:).process
   end
 
-  def resourceable?
-    prompt_decorators.any? do |prompt_decorator|
-      prompt_decorator.value.include?('{{resources}}')
-    end
+  def self.restricted_by(user:)
+    left_outer_joins(:warehouses).where(warehouses: { id: [user.warehouses.ids, nil].flatten })
   end
 
   private

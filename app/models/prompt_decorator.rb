@@ -3,10 +3,10 @@
 class PromptDecorator < ApplicationRecord
   include Helpers::ValidationHelper
 
-  validates :value, presence: true
   validates :name, presence: true, uniqueness: true
-  validates :priority, presence: true, uniqueness: { scope: :feature_id }
   validate :name_is_snakecase
+  validates :value, presence: true
+  validates :priority, presence: true, uniqueness: { scope: :feature_id }
 
   belongs_to :feature
 

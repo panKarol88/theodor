@@ -5,6 +5,10 @@ Rails.logger.debug 'Seeding the database...'
 owner_user = User.find_or_initialize_by(email: ENV.fetch('OWNER_EMAIL_ADDRESS', nil))
 owner_user.update!(password: ENV.fetch('OWNER_PASSWORD', nil)) if owner_user.new_record?
 
+# ---------------------------------------
+# --------- RESOURCE FEATURE ------------
+# ---------------------------------------
+
 resource_feature = Feature.find_or_create_by!(name: 'resource_feature') do |feature|
   feature.description = 'Resource Feature'
 end
@@ -23,6 +27,21 @@ end
 resource_feature.prompt_decorators.find_or_create_by(name: 'resource_format') do |prompt_decorator|
   prompt_decorator.priority = 2
   prompt_decorator.value = 'Respond in JSON format. '
+end
+
+# ---------------------------------------
+# -------- PROBABILITY FEATURE ----------
+# ---------------------------------------
+
+probability_feature = Feature.find_or_create_by!(name: 'probability_feature') do |feature|
+  feature.description = 'Probability Feature'
+end
+
+probability_feature.prompt_decorators.find_or_create_by(name: 'probability_input') do |prompt_decorator|
+  prompt_decorator.priority = 0
+  prompt_decorator.value = 'These are attributes you wanted to find: \n{{probability_properties}} \n' \
+                           'In a one very very very short sentence, kindly ask about more context related to these attributes. ' \
+                           'So then you can make a decision. Describe the values of these attributes, don\'t quote them.'
 end
 
 # ---------------------------------------
