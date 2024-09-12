@@ -9,20 +9,19 @@ module DataCrumbs
       @warehouse = warehouse
     end
 
-    def embed_and_create!
-      embed_and_create
+    def embed_and_create
+      embed_and_initialize
+      data_crumb.save!
+
+      data_crumb
     end
 
     def embed_and_initialize
-      DataCrumb.new(embedding: embed(content), content:, warehouse:)
+      @data_crumb = DataCrumb.new(embedding: embed(content), content:, warehouse:)
     end
 
     private
 
-    attr_reader :content, :warehouse
-
-    def embed_and_create
-      DataCrumb.create!(embedding: embed(content), content:, warehouse:)
-    end
+    attr_reader :content, :warehouse, :data_crumb
   end
 end

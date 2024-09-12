@@ -186,5 +186,3 @@ end
 owner_user.warehouses << Warehouse.all
 
 Rails.logger.debug 'Seeding the database...done'
-
-# AiFeatures::Knowledge.new(input: "lubię śliwki", user: User.last)

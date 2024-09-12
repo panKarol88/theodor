@@ -2,7 +2,7 @@
 
 module Theodor
   module Helpers
-    module KnowledgeAPI
+    module PromptAPI
       extend Grape::API::Helpers
 
       params :knowledge_api do
@@ -11,6 +11,8 @@ module Theodor
         optional :warehouse_name, type: String, desc: 'Name of the Warehouse.'
         optional :feature_id, type: Integer, desc: 'ID of the Feature.'
         optional :feature_name, type: String, desc: 'Name of the Feature.'
+        optional :workflow_id, type: Integer, desc: 'ID of the Workflow.'
+        optional :workflow_name, type: String, desc: 'Name of the Workflow.'
       end
 
       def input
@@ -31,12 +33,11 @@ module Theodor
         end
       end
 
-      def object_payload
-        object, entity = ::API::AiResponseHandler.new(prompt_object:).presenter_stack
-
-        return object if entity.blank?
-
-        present object, with: entity
+      def workflow
+        @workflow ||= begin
+          workflow_attrs = { id: params[:workflow_id], name: params[:workflow_name] }.compact
+          workflow_attrs.empty? ? nil : Workflow.find_by(workflow_attrs)
+        end
       end
     end
   end

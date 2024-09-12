@@ -17,7 +17,7 @@ module Features
       create_thread_log
 
       if feature_record.store_results?
-        DataCrumbs::Builder.new(content: thread_object[:output], warehouse:).embed_and_create!
+        DataCrumbs::Builder.new(content: thread_object[:output], warehouse:).embed_and_create
         thread_object[:output] = "The information has been successfully stored in the #{warehouse.name} warehouse."
       end
 

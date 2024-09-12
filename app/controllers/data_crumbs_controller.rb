@@ -19,10 +19,9 @@ class DataCrumbsController < ApplicationController
 
   def create
     @data_crumb = DataCrumbs::Builder.new(
-      input: data_crumb_params[:content],
-      warehouse: @warehouse,
-      feature: @feature
-    ).prepare_input.embed_and_initialize
+      content: data_crumb_params[:content],
+      warehouse: @warehouse
+    ).embed_and_initialize
 
     if @data_crumb.save
       respond_to do |format|

@@ -4,8 +4,7 @@ module Theodor
   module V1
     module Prompts
       class API < Theodor::V1::API
-        resource :prompts do
-          mount Theodor::V1::Prompts::Question
+        resource :prompt do
           mount Theodor::V1::Prompts::Prompt
         end
       end

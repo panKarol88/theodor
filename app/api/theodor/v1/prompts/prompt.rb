@@ -6,16 +6,10 @@ module Theodor
       class Prompt < API
         desc 'Process general prompt.'
 
-        helpers ::Theodor::Helpers::KnowledgeAPI
-
-        helpers do
-          def prompt_object
-            @prompt_object ||= AiFeatures::Knowledge.new(user: current_user, input:, warehouse:, feature:).process
-          end
-        end
+        helpers ::Theodor::Helpers::PromptAPI
 
         post do
-          object_payload
+          Workflows::WorkflowHandler.new(workflow:).process_input(input:)[:output]
         end
       end
     end
