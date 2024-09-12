@@ -16,7 +16,7 @@
 
     <% if @feature.name == 'resource_feature' %>
       <div>
-        <%= f.select :resource_class, ["Warehouse", "Feature"], { prompt: "Select a Resource" } %>
+        <%= f.select :resource_class, %w[Warehouse Feature], { prompt: 'Select a Resource' } %>
       </div>
     <% end %>
 
@@ -44,6 +44,6 @@
       </div>
     </div>
 
-    <%= f.submit "Submit" %>
+    <%= f.submit 'Submit' %>
   <% end %>
 <% end %>

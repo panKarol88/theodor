@@ -41,6 +41,7 @@ group :development, :test do
   gem 'rubocop-rspec_rails', require: false
   gem 'selenium-webdriver'
   gem 'webmock'
+  gem "rubocop-erb", "~> 0.5.3"
 end
 
 group :development do

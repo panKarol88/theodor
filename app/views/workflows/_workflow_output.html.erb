@@ -6,7 +6,7 @@
         <% thread_log.each do |key, value| %>
             <p>
               <b><%= "#{key}:" %></b>
-              <%= "#{value}" %>
+              <%= value.to_s %>
             </p>
         <% end %>
         <p>-----------------------</p>

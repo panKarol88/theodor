@@ -6,7 +6,7 @@
     <h2>Features</h2>
     <div class="home-section-content">
       <% @features.each do |feature| %>
-        <%= link_to feature.name, feature, class: "btn btn--dark" %>
+        <%= link_to feature.name, feature, class: 'btn btn--dark' %>
       <% end %>
     </div>
   </div>
@@ -14,7 +14,7 @@
     <h2>Data Crumbs</h2>
     <% @data_crumbs.each do |data_crumb| %>
       <div class="warehouse__data_crumb">
-        <%= data_crumb.content[0..200] ... %>
+        <%= data_crumb.content[0..200]... %>
       </div>
     <% end %>
   </div>

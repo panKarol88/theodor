@@ -2,19 +2,19 @@
   <h1>Warehouses</h1>
   <div class="home-section-content">
     <% @warehouses.each do |warehouse| %>
-      <%= link_to warehouse.name, warehouse, class: "btn btn--dark" %>
+      <%= link_to warehouse.name, warehouse, class: 'btn btn--dark' %>
     <% end %>
   </div>
 
   <h1>Data Crumbs</h1>
   <div class="home-section-content">
-    <%= link_to "All DataCrumbs", data_crumbs_path, class: "btn btn--dark" %>
+    <%= link_to 'All DataCrumbs', data_crumbs_path, class: 'btn btn--dark' %>
   </div>
 
   <h1>Workflows</h1>
   <div class="home-section-content">
     <% current_user.workflows.each do |workflow| %>
-      <%= link_to workflow.name, workflow, class: "btn btn--dark" %>
+      <%= link_to workflow.name, workflow, class: 'btn btn--dark' %>
     <% end %>
   </div>
 </main>

@@ -4,8 +4,8 @@
   </div>
   <%= turbo_frame_tag PromptDecorator.new %>
 
-  <%= link_to "New Prompt Decorator", new_prompt_decorator_path(feature_id: @feature.id),
+  <%= link_to 'New Prompt Decorator', new_prompt_decorator_path(feature_id: @feature.id),
               data: { turbo_frame: dom_id(PromptDecorator.new) },
-              class: "btn btn--primary" %>
-  <%= render "prompt_decorators/prompt_decorators" %>
+              class: 'btn btn--primary' %>
+  <%= render 'prompt_decorators/prompt_decorators' %>
 </main>

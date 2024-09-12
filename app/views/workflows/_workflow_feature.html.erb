@@ -21,11 +21,11 @@
         <% end %>
       </div>
 
-      <%= button_to "Delete",
+      <%= button_to 'Delete',
                     "/workflows/#{@workflow.id}/workflows_features/#{workflows_feature.id}",
                     method: :delete,
                     form: { data: { turbo_confirm: 'Sure?' } },
-                    class: "btn btn--primary" %>
+                    class: 'btn btn--primary' %>
     </div>
   </div>
 </div>

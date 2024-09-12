@@ -4,6 +4,7 @@ require:
   - rubocop-rspec_rails
   - rubocop-factory_bot
   - rubocop-capybara
+  - rubocop-erb
 
 AllCops:
   SuggestExtensions: false
@@ -11,6 +12,8 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'Gemfile.lock'
+  Include:
+    - '**/*.html.erb'
 
 Style/Documentation:
   Enabled: false

@@ -1,11 +1,11 @@
 <main class="container">
-  <%= link_to sanitize("&larr; Back to Data Crumbs"), data_crumbs_path %>
+  <%= link_to sanitize('&larr; Back to Data Crumbs'), data_crumbs_path %>
 
   <div class="header">
     <h1>New Data Crumb</h1>
   </div>
 
   <%= turbo_frame_tag @data_crumb do %>
-    <%= render "form", data_crumb: @data_crumb %>
+    <%= render 'form', data_crumb: @data_crumb %>
   <% end %>
 </main>

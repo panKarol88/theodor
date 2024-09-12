@@ -6,7 +6,7 @@
 
 failed=false
 
-ruby_files_modified=`git diff --staged --name-only --diff-filter=ACRM | grep -E '(\.rb|\.ruby|\.rake)' | xargs`
+ruby_files_modified=`git diff --staged --name-only --diff-filter=ACRM | grep -E '(\.rb|\.ruby|\.rake|\.erb)' | xargs`
 
 if ! [ -z "$ruby_files_modified" ]; then
   printf '\e[1m\e[34m========= reek ============\n\e[0m'

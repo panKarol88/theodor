@@ -1,4 +1,4 @@
-<%= simple_form_for prompt_decorator, html: { class: "prompt_decorator form" } do |f| %>
+<%= simple_form_for prompt_decorator, html: { class: 'prompt_decorator form' } do |f| %>
   <% if prompt_decorator.errors.any? %>
     <div class="error-message">
       <%= prompt_decorator.errors.full_messages.to_sentence.capitalize %>
@@ -27,8 +27,8 @@
       <%= f.input :feature_id, as: :hidden, input_html: { value: @feature.id } %>
     </div>
     <div>
-      <%= link_to "Cancel", feature_path(@feature), class: "btn btn--light" %>
-      <%= f.submit "#{action_name == 'edit' ? 'Update' : 'Create'} Prompt Decorator", class: "btn btn--secondary" %>
+      <%= link_to 'Cancel', feature_path(@feature), class: 'btn btn--light' %>
+      <%= f.submit "#{action_name == 'edit' ? 'Update' : 'Create'} Prompt Decorator", class: 'btn btn--secondary' %>
     </div>
   </div>
 <% end %>

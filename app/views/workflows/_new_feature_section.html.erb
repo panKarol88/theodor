@@ -1,5 +1,5 @@
 <%= turbo_frame_tag Feature.new do %>
   <div>
-    <%= link_to "New Feature", new_feature_workflow_path(@workflow), data: { turbo_frame: dom_id(Feature.new) }, class: "btn btn--primary" %>
+    <%= link_to 'New Feature', new_feature_workflow_path(@workflow), data: { turbo_frame: dom_id(Feature.new) }, class: 'btn btn--primary' %>
   </div>
 <% end %>
