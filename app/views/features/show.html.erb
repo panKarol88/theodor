@@ -2,6 +2,9 @@
   <div class="header">
     <h1><%= @feature.name %></h1>
   </div>
+  <div>
+    <h2><%= @feature.description %></h2>
+  </div>
   <%= turbo_frame_tag PromptDecorator.new %>
 
   <%= link_to 'New Prompt Decorator', new_prompt_decorator_path(feature_id: @feature.id),

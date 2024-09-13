@@ -1,14 +1,14 @@
-<%= turbo_frame_tag "new_feature_workflow" do %>
+<%= turbo_frame_tag 'new_feature_workflow' do %>
   <%= form_with url: create_feature_workflow_path(@workflow), method: :post do |f| %>
     <div>
       <%= f.collection_select :feature_id, current_features, :id, :name,
                               {
-                                prompt: "Select a feature",
+                                prompt: 'Select a feature',
                                 selected: @feature.id,
                               }, {
         data: {
-          controller: "workflows",
-          action: "workflows#featureSelect",
+          controller: 'workflows',
+          action: 'workflows#featureSelect',
           workflow_id: @workflow.id,
         },
       } %>
@@ -22,7 +22,7 @@
 
     <% if @feature.name == 'probability_feature' %>
       <div>
-        <%= f.number_field :probability_threshold, step: 'any', value: -0.02 %>
+        <%= f.number_field :probability_threshold, step: 'any', value: 0.9 %>
       </div>
     <% end %>
 

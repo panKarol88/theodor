@@ -13,6 +13,7 @@ module Helpers
     end
 
     # TODO: Refactor
+    # :reek:TooManyStatements
     def parse_prompt_decorator(prompt_decorator:, input:) # rubocop:disable Metrics/AbcSize
       decoration = prompt_decorator.value
 
@@ -29,6 +30,11 @@ module Helpers
       end
 
       return decoration.gsub('{{probability_properties}}', probability_properties.to_s) if decoration.include?('{{probability_properties}}')
+
+      output_resource = thread_object.dig(:output, :resource)
+      if decoration.include?('{{best_suggestion}}') && output_resource.present?
+        return decoration.gsub('{{best_suggestion}}', output_resource)
+      end
 
       decoration
     end
