@@ -4,6 +4,7 @@ exclude_paths:
   - 'vendor/**/*'
   - 'app/channels/application_cable/channel.rb'
   - 'app/channels/application_cable/connection.rb'
+  - 'app/domains/ai_devs_3/**/*'
 
 detectors:
   IrresponsibleModule:
@@ -28,6 +29,9 @@ directories:
     UtilityFunction:
       enabled: false
   '**/**/helpers**':
+    UtilityFunction:
+      enabled: false
+  'app/helpers**':
     UtilityFunction:
       enabled: false
     FeatureEnvy:

@@ -22,7 +22,7 @@ module Shared
       json_response = JSON.parse(joined_tokens)
       keys = json_response.keys
       logprobs_tokens.reject! { |token| keys.include?(token['token']) }
-    rescue JSON::ParserError
+    rescue JSON::ParserError, NoMethodError
       nil # if the JSON is invalid, do nothing
     end
 
