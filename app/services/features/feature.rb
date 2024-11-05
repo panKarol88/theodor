@@ -16,6 +16,7 @@ module Features
       thread_object[:output] = obtain_response
       create_thread_log
 
+      # TODO: Refactor
       if feature_record.store_results?
         DataCrumbs::Builder.new(content: thread_object[:output], warehouse:).embed_and_create
         thread_object[:output] = "The information has been successfully stored in the #{warehouse.name} warehouse."
@@ -29,7 +30,11 @@ module Features
     attr_reader :feature_record, :thread_object, :user, :feature_properties
 
     def obtain_response
-      chat(prompt)
+      response_object = chat(prompt)
+      thread_object[:initial_response] = response_object
+      content, probability = response_object[:content], response_object[:probability]
+
+      Shared::AnswerGenerator.new(content:, probability:, probability_threshold:).generate_answer
     end
 
     def create_thread_log
@@ -57,6 +62,10 @@ module Features
 
     def prompt_decorators
       @prompt_decorators ||= feature_record.prompt_decorators.priority_ordered
+    end
+
+    def probability_threshold
+      feature_properties[:probability_threshold]
     end
   end
 end

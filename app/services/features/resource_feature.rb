@@ -15,13 +15,14 @@ module Features
     attr_reader :resource_collection
 
     def obtain_response
-      response = resource_bet(prompt)
-      resource_id = resource_class.find_by(name: response[:resource])&.id
+      response_object = resource_bet(prompt)
+      content, probability = JSON.parse(response_object[:content]), response_object[:probability]
+      resource_id = resource_class.find_by(name: content['resource'])&.id
 
+      thread_object[:initial_response] = response_object
       thread_object[:"#{resource_class.to_s.downcase}_id"] = resource_id
-      thread_object[:probability] = response[:probability]
 
-      response
+      Shared::AnswerGenerator.new(content:, probability:, probability_threshold:).generate_answer
     end
 
     def set_resource_collection

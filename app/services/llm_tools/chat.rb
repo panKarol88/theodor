@@ -3,7 +3,7 @@
 module LlmTools
   class Chat
     def submit(prompt:)
-      OpenAi::Client.new.chat_completion(prompt:)['choices'][0]['message']['content']
+      OpenAi::Client.new.chat_completion(prompt:)['choices'][0]
     end
   end
 end

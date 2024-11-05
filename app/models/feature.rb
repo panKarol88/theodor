@@ -10,6 +10,7 @@ class Feature < ApplicationRecord
 
   scope :priority_ordered, -> { order(:priority) }
 
+  # TODO: move this method to some other abstraction
   def process(thread_object:, user:, feature_properties: {})
     feature_service.new(feature_record: self, thread_object:, user:, feature_properties:).process
   end

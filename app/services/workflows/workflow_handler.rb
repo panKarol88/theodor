@@ -20,12 +20,12 @@ module Workflows
         break if stop_processing?
       end
 
-      final_feature = Feature.find(thread_object[:feature_id])
-
-      if final_feature.present? && !stop_processing?
-        final_feature_results = final_feature.process(thread_object:, user:)
-        thread_object.merge!(final_feature_results)
-      end
+      # final_feature = Feature.find(thread_object[:feature_id])
+      #
+      # if final_feature.present? && !stop_processing?
+      #   final_feature_results = final_feature.process(thread_object:, user:)
+      #   thread_object.merge!(final_feature_results)
+      # end
 
       thread_object
     end
