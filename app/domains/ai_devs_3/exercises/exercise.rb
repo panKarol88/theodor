@@ -18,7 +18,7 @@ module AiDevs3
           "task": task,
           "apikey": ENV.fetch('AI_DEVS_API_KEY', nil),
           "answer": answer
-        }
+        }.to_json
       end
 
       def send_answer

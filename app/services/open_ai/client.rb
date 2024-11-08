@@ -10,7 +10,7 @@ module OpenAi
       open_ai_request['data'][0]['embedding']
     end
 
-    def chat_completion(prompt:, model: 'gpt-4o', role: 'user', chat_completion_attrs: default_chat_completion_attrs)
+    def chat_completion(prompt:, model: 'gpt-4o-mini', role: 'user', chat_completion_attrs: default_chat_completion_attrs)
       @url = URI("#{api_url}/chat/completions")
       messages = [{ content: prompt, role: }]
       @body = default_chat_completion_attrs.merge(chat_completion_attrs).compact.merge({ model:, messages: }).to_json
