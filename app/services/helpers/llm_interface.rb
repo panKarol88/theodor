@@ -11,6 +11,11 @@ module Helpers
       response_object(choice)
     end
 
+    def vision_info(prompt, vision_sources)
+      choice = LlmTools::VisionInfo.new.submit(prompt:, vision_sources:)
+      response_object(choice)
+    end
+
     def resource_bet(prompt)
       choice = LlmTools::ResourceBet.new.submit(prompt:)
       response_object(choice)
