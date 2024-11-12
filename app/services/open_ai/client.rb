@@ -22,11 +22,11 @@ module OpenAi
     def vision_info(prompt:, vision_sources: [], model: 'gpt-4o', chat_completion_attrs: default_chat_completion_attrs)
       @url = URI("#{api_url}/chat/completions")
       messages = [{
-                    role: 'user',
-                    content: [
-                      { type: 'text', text: prompt },
-                    ]
-                  }]
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt }
+        ]
+      }]
       vision_sources.each do |vision_source|
         messages[0][:content] << { type: 'image_url', image_url: { url: vision_source } }
       end
