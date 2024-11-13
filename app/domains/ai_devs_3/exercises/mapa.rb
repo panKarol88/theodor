@@ -18,7 +18,7 @@ module AiDevs3
       end
 
       def answer
-        vision_info("co to jest za miasto?", photos)
+        vision_info("Gdzieś tu jest ukryta tajna wiadomość. Jak ją znaleźć? Jak ona brzmi?", photos)
       end
     end
   end
