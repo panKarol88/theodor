@@ -17,6 +17,8 @@ detectors:
     enabled: false
   InstanceVariableAssumption:
     enabled: false
+  DataClump:
+    enabled: false
 
 directories:
   'app/controllers**':

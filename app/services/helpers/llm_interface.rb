@@ -16,6 +16,10 @@ module Helpers
       response_object(choice)
     end
 
+    def image_generation(prompt, size = "1024x1024")
+      LlmTools::ImageGeneration.new.submit(prompt:, size:)
+    end
+
     def resource_bet(prompt)
       choice = LlmTools::ResourceBet.new.submit(prompt:)
       response_object(choice)

@@ -34,6 +34,12 @@ module OpenAi
       open_ai_request
     end
 
+    def image_generation(prompt:, size: '1024x1024', model: 'dall-e-3')
+      @url = URI("#{api_url}/images/generations")
+      @body = { prompt:, size:, model: }.to_json
+      open_ai_request
+    end
+
     private
 
     attr_reader :url, :body
