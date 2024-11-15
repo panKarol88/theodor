@@ -40,6 +40,15 @@ module OpenAi
       open_ai_request
     end
 
+    def audio_transcription(file_dir:, model: 'whisper-1')
+      @url = URI("#{api_url}/audio/transcriptions")
+      form_data = [
+        ["model", model],
+        ["file", File.open(file_dir)]
+      ]
+      open_ai_request(form_data:)
+    end
+
     private
 
     attr_reader :url, :body
@@ -50,11 +59,18 @@ module OpenAi
       end
     end
 
-    def open_ai_request
+    # TODO
+    # :reek:FeatureEnvy
+    def open_ai_request(form_data: nil)
       request = Net::HTTP::Post.new(url).tap do |req|
         req['Authorization'] = "Bearer #{api_key}"
         req['Content-Type'] = 'application/json'
         req.body = body
+
+        if form_data.present?
+          req['Content-Type'] = 'multipart/form-data'
+          req.set_form(form_data, 'multipart/form-data')
+        end
       end
 
       JSON.parse(http.request(request).read_body)

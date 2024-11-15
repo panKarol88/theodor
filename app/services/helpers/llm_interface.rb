@@ -20,6 +20,10 @@ module Helpers
       LlmTools::ImageGeneration.new.submit(prompt:, size:)
     end
 
+    def audio_transcription(file_dir)
+      LlmTools::AudioTranscription.new.submit(file_dir:)
+    end
+
     def resource_bet(prompt)
       choice = LlmTools::ResourceBet.new.submit(prompt:)
       response_object(choice)
