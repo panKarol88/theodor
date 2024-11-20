@@ -8,6 +8,7 @@ module AiDevs3
       include Helpers::LlmInterface
 
       def initialize(data_link: nil, destination_link: nil, task: nil)
+        @warehouse = Warehouse.find_by(name: 'ai_devs')
         @data_link = data_link
         @destination_link = destination_link
         @task = task
@@ -25,7 +26,7 @@ module AiDevs3
         p send_post_request(destination_link, result)
       end
 
-      attr_reader :data_link, :destination_link, :task
+      attr_reader :warehouse, :data_link, :destination_link, :task
 
       def answer
         raise NotImplementedError
