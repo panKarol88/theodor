@@ -1,20 +1,59 @@
 module HttpRequestsHelper
+  class Requester
+    def initialize(url:, payload: nil, bearer_token: nil, **headers)
+      @url = url
+      @payload = payload
+      @headers = sanitized_headers(headers, bearer_token)
+    end
+
+    def post
+      send_request do |uri|
+        Net::HTTP::Post.new(uri.request_uri, headers)
+      end
+    end
+
+    def get
+      send_request do |uri|
+        Net::HTTP::Get.new(uri.request_uri, headers)
+      end
+    end
+
+    def patch
+      send_request do |uri|
+        Net::HTTP::Patch.new(uri.request_uri, headers)
+      end
+    end
+
+    private
+
+    attr_reader :url, :headers, :payload
+
+    def sanitized_headers(headers, bearer_token)
+      headers['Content-Type'] ||= 'application/json'
+      headers['Authorization'] ||= "Bearer #{bearer_token}" if bearer_token
+      headers
+    end
+
+    def send_request
+      uri = URI.parse(url)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      request = yield(uri)
+      request.body = payload if payload.present?
+      response = http.request(request)
+      response.body
+    end
+  end
+
+  # ---------------------------------------------------------------------------------------
+  # support deprecated method names
+  # TODO: remove in the future
   def send_post_request(url, payload, content_type = 'application/json')
-    uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(uri.request_uri, 'Content-Type' => content_type)
-    request.body = payload
-    response = http.request(request)
-    response.body
+    HttpRequestsHelper::Requester.new(url:, payload:, 'content_type': content_type).post
   end
 
   def send_get_request(url)
-    uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    request = Net::HTTP::Get.new(uri.request_uri)
-    response = http.request(request)
-    response.body
+    HttpRequestsHelper::Requester.new(url:).get
   end
+  # ---------------------------------------------------------------------------------------
 end
