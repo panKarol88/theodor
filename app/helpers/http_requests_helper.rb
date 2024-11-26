@@ -1,8 +1,9 @@
 module HttpRequestsHelper
   class Requester
-    def initialize(url:, payload: nil, bearer_token: nil, **headers)
+    def initialize(url:, payload: {}, bearer_token: nil, basic_auth: nil, **headers)
       @url = url
       @payload = payload
+      @basic_auth = basic_auth
       @headers = sanitized_headers(headers, bearer_token)
     end
 
@@ -26,7 +27,7 @@ module HttpRequestsHelper
 
     private
 
-    attr_reader :url, :headers, :payload
+    attr_reader :url, :headers, :payload, :basic_auth
 
     def sanitized_headers(headers, bearer_token)
       headers['Content-Type'] ||= 'application/json'
@@ -37,9 +38,10 @@ module HttpRequestsHelper
     def send_request
       uri = URI.parse(url)
       http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = true
+      http.use_ssl = url.split('://').first == 'https'
       request = yield(uri)
       request.body = payload if payload.present?
+      request.basic_auth(basic_auth[0], basic_auth[1]) if basic_auth.present?
       response = http.request(request)
       response.body
     end
