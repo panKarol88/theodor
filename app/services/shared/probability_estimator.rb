@@ -9,6 +9,8 @@ module Shared
       sanitize_special_characters
 
       logprobs_tokens.sum { |token| Math.exp(token['logprob']) } / logprobs_tokens.size
+    rescue ZeroDivisionError
+      0
     end
 
     private
