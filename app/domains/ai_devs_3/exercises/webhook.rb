@@ -11,7 +11,7 @@ module AiDevs3
         messages = [
           {
             'role': 'system',
-            'content': AiDevs3::Exercises::Prompts::Webhooks::ObtainInstructions.new.prompt,
+            'content': AiDevs3::Exercises::Prompts::Webhooks::AnswerNotesQuestions.new.prompt,
           },
           {
             'role': 'user',

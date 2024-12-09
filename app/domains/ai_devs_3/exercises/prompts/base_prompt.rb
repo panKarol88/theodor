@@ -9,7 +9,7 @@ module AiDevs3
         def prompt
           prompt_body = ''
           prompt_source_yml.each do |key, value|
-            paragraph = key == 'entry' ? "#{value}\n\n" : "<#{key}>\n#{value}\n</#{key}>\n"
+            paragraph = key.in?(%w[entry afterword]) ? "#{value}\n\n" : "<#{key}>\n#{value}\n</#{key}>\n"
             prompt_body << paragraph
           end
 
