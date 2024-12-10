@@ -20,8 +20,8 @@ module AiDevs3
         table_structures
       end
 
-      def answer_query
-        message = 'For the given database structure, write an SQL query that will return a list of active datacenters that are managed by managers that are currently inactive.'
+      def answer_query(task = 'Return a list of active datacenters that are managed by managers that are currently inactive.')
+        message = "#{task}"
         message += 'To achieve that, you need to follow the rules and examples below.'
         message += "<database_structure>\n#{database_context}\n</database_structure>\n"
         message += '<rules>\n'
@@ -38,14 +38,15 @@ module AiDevs3
         message += '<task>How many connections thare are for user with id 1</task>'
         message += '<query>SELECT COUNT(*) FROM connections WHERE user1_id = "1";</query>'
         message += '</example2>\n\n\n'
-        message += '<task>Return a list of active datacenters that are managed by managers that are currently inactive.</task>'
+        message += "<task>#{task}</task>"
 
         generated_query = chat(message)[:content]
+        p generated_query
         generated_query[generated_query.index('<query>')...generated_query.index('</query>')].gsub('<query>', '').gsub('</query>', '')
       end
 
-      def answer
-        send_query(answer_query).pluck('dc_id')
+      def answer(task)
+        send_query(answer_query(task))
       end
     end
   end
