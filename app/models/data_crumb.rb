@@ -7,6 +7,8 @@ class DataCrumb < ApplicationRecord
   belongs_to :warehouse, inverse_of: :data_crumbs
   has_many :users, through: :warehouse
 
+  self.filter_attributes += [:embedding]
+
   # alternative:
   # after_create_commit -> do
   #   broadcast_prepend_to "data_crumbs",

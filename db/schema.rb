@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_20_103403) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_18_070707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_20_103403) do
     t.datetime "updated_at", null: false
     t.bigint "warehouse_id", null: false
     t.vector "embedding", limit: 1536, null: false
+    t.jsonb "keywords", default: [], null: false
     t.index ["warehouse_id"], name: "index_data_crumbs_on_warehouse_id"
   end
 

@@ -12,6 +12,7 @@ AllCops:
   Exclude:
     - 'db/schema.rb'
     - 'Gemfile.lock'
+    - 'app/domains/ai_devs_3/**/*'
   Include:
     - '**/*.html.erb'
 

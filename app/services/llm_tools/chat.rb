@@ -3,7 +3,10 @@
 module LlmTools
   class Chat
     def submit(prompt:)
-      OpenAi::Client.new.chat_completion(prompt:)['choices'][0]
+      raw_response = OpenAi::Client.new.chat_completion(prompt:)
+      raw_response['choices'][0]
+    rescue NoMethodError => error
+      Rails.logger.error("### OpenAi::Client ###\n #{raw_response}\nChat error: #{error.message}")
     end
   end
 end
