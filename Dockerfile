@@ -1,5 +1,5 @@
 # Dev stage
-FROM ruby:3.3.2 AS dev
+FROM ruby:3.3.2 AS rupert
 WORKDIR /rupert
 ENV RAILS_ENV=development
 

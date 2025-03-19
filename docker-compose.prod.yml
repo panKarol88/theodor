@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: rupert_dev_db
+    container_name: rupert_prod_db
     image: ankane/pgvector:v0.5.1
     ports:
       - "5432:5432"
@@ -14,10 +14,10 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-      - rupert_dev:/var/lib/postgresql/data
+      - rupert_prod:/var/lib/postgresql/data
     command: ["postgres", "-c", "shared_preload_libraries=vector"]
   rupert:
-    container_name: rupert_dev
+    container_name: rupert_prod
     build:
       context: .
       target: rupert
@@ -27,7 +27,7 @@ services:
     volumes:
       - .:/rupert
     environment:
-      - RAILS_ENV=development
+      - RAILS_ENV=production
     env_file:
       - .env
     depends_on:
@@ -35,4 +35,4 @@ services:
         condition: service_healthy
 
 volumes:
-  rupert_dev:
+  rupert_prod:
