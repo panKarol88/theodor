@@ -43,8 +43,8 @@ module OpenAi
     def audio_transcription(file_dir:, model: 'whisper-1')
       @url = URI("#{api_url}/audio/transcriptions")
       form_data = [
-        ["model", model],
-        ["file", File.open(file_dir)]
+        ['model', model],
+        ['file', File.open(file_dir)]
       ]
       open_ai_request(form_data:)
     end

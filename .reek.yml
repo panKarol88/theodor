@@ -19,6 +19,10 @@ detectors:
     enabled: false
   DataClump:
     enabled: false
+  BooleanParameter:
+    enabled: false
+  UncommunicativeVariableName:
+    enabled: false
 
 directories:
   'app/controllers**':

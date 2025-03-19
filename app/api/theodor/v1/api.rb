@@ -19,6 +19,7 @@ module Theodor
 
       mount Users::API
       mount Prompts::API
+      mount Karollama::API
     end
   end
 end
