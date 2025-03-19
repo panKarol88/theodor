@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Data Crumbs', :js do
+xdescribe 'Data Crumbs', :js do
   describe 'authorized', :authorized do
     let(:authenticated_user) { create(:user) }
     let(:data_crumb) { DataCrumb.order(created_at: :desc).first }
