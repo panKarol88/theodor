@@ -42,4 +42,7 @@ directories:
       enabled: false
     FeatureEnvy:
       enabled: false
+  'app/api/rupert/helpers**':
+    FeatureEnvy:
+      enabled: false
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module Helpers
     module ErrorHandler
       def handle_exception(exception)

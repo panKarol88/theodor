@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module V1
-    class API < Theodor::API
-      version 'v1', using: :header, vendor: 'theodor'
+    class API < Rupert::API
+      version 'v1', using: :header, vendor: 'rupert'
       format :json
 
       before do
@@ -14,8 +14,8 @@ module Theodor
         handle_exception(exception)
       end
 
-      helpers ::Theodor::Helpers::Auth
-      helpers ::Theodor::Helpers::ErrorHandler
+      helpers ::Rupert::Helpers::Auth
+      helpers ::Rupert::Helpers::ErrorHandler
 
       mount Users::API
       mount Prompts::API

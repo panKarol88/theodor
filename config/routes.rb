@@ -21,5 +21,5 @@ Rails.application.routes.draw do
 
   get 'up' => 'rails/health#show', as: :rails_health_check
 
-  mount Theodor::API => '/api/'
+  mount Rupert::API => '/api/'
 end

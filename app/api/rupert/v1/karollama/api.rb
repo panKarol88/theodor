@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module V1
     module Karollama
-      class API < Theodor::V1::API
+      class API < Rupert::V1::API
         route_setting :auth, disabled: true
 
         resource :karollama do
-          mount Theodor::V1::Karollama::Karollama
+          mount Rupert::V1::Karollama::Karollama
         end
       end
     end

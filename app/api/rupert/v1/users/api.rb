@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module V1
     module Users
-      class API < Theodor::V1::API
+      class API < Rupert::V1::API
         resource :users do
-          mount Theodor::V1::Users::SignIn
+          mount Rupert::V1::Users::SignIn
         end
       end
     end

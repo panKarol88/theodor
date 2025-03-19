@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module V1
     module Users
       class SignIn < API

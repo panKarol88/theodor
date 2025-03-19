@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
-module Theodor
+module Rupert
   module AiDevs
-    class API < Theodor::API
+    class API < Rupert::API
       format :json
 
       rescue_from :all do |exception|
         handle_exception(exception)
       end
 
-      helpers ::Theodor::Helpers::ErrorHandler
+      helpers ::Rupert::Helpers::ErrorHandler
 
       resource :webhook do
-
         post do
           status :ok
 
@@ -26,10 +25,10 @@ module Theodor
           Rails.logger.info('**********************')
           Rails.logger.info(current_position)
           Rails.logger.info('**********************')
-          Rails.logger.info({ 'description': current_position[:description] })
+          Rails.logger.info({ description: current_position[:description] })
           Rails.logger.info('**********************')
 
-          { 'description': current_position[:description] }
+          { description: current_position[:description] }
         end
       end
     end

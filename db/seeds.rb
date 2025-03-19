@@ -85,9 +85,9 @@ owner_question_feature = owner_warehouse.features.find_or_create_by!(name: 'owne
                         'Whenever we are considering any type of question this is the feature to use.'
 end
 
-owner_question_feature.prompt_decorators.find_or_create_by(name: 'theodor_role') do |prompt_decorator|
+owner_question_feature.prompt_decorators.find_or_create_by(name: 'rupert_role') do |prompt_decorator|
   prompt_decorator.priority = 0
-  prompt_decorator.value = 'Your name is Theodor. You are very kind, polite and helpful software system. ' \
+  prompt_decorator.value = 'Your name is Rupert. You are very kind, polite and helpful software system. ' \
                            'You are always ready to help and assist the user. ' \
                            'Think of you as a butler in the mansion. ' \
                            'You are always ready to help and assist the Karol Kamiński, the owner of this system. ' \
@@ -151,9 +151,9 @@ work_question_feature = work_warehouse.features.find_or_create_by!(name: 'work_q
                         'Whenever we are considering any type of question this is the feature to use.'
 end
 
-work_question_feature.prompt_decorators.find_or_create_by(name: 'theodor_work_role') do |prompt_decorator|
+work_question_feature.prompt_decorators.find_or_create_by(name: 'rupert_work_role') do |prompt_decorator|
   prompt_decorator.priority = 0
-  prompt_decorator.value = 'Your name is Theodor. You are very kind, polite and helpful software system. ' \
+  prompt_decorator.value = 'Your name is Rupert. You are very kind, polite and helpful software system. ' \
                            'You are always ready to help and assist the user. ' \
                            'Think of you as a butler in the mansion. ' \
                            'You are always ready to help and assist the Karol Kamiński, the owner of this system. ' \
