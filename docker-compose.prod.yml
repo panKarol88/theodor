@@ -3,9 +3,9 @@ services:
     container_name: rupert_prod_db
     image: ankane/pgvector:v0.5.1
     ports:
-      - "5432:5432"
+      - "5433:5433"
     expose:
-      - "5432"
+      - "5433"
     env_file:
       - .env
     healthcheck:
