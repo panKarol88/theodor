@@ -115,8 +115,3 @@ AiDevs3::Exercises::Arxiv.new(
   destination_link: 'https://centrala.ag3nts.org/report',
   task: 'ARXIV'
 ).send_answer
-
-GhUiPj1fKTM3NCY1KSUMNxkP
-"\x1A\x15\">=_)374&5)%\f7\x19\x0F"
-
-SUB NAK EM
