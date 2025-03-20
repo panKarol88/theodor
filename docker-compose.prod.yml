@@ -22,8 +22,8 @@ services:
     command: sh -c "bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p 3000"
     ports:
       - "3000:3000"
-    volumes:
-      - .:/rupert
+    expose:
+      - "3000"
     environment:
       - RAILS_ENV=production
     env_file:
