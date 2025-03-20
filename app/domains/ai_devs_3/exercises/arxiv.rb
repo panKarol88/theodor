@@ -110,8 +110,8 @@ end
 #   data_link: 'https://centrala.ag3nts.org/dane/arxiv-draft.html'
 # ).translate_all_voice_resources_to_text_in_md
 
-AiDevs3::Exercises::Arxiv.new(
-  data_link: 'https://centrala.ag3nts.org/dane/arxiv-draft.html',
-  destination_link: 'https://centrala.ag3nts.org/report',
-  task: 'ARXIV'
-).send_answer
+# AiDevs3::Exercises::Arxiv.new(
+#   data_link: 'https://centrala.ag3nts.org/dane/arxiv-draft.html',
+#   destination_link: 'https://centrala.ag3nts.org/report',
+#   task: 'ARXIV'
+# ).send_answer

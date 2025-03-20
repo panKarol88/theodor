@@ -6,7 +6,7 @@ ruby '3.3.2'
 
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 4.9.4'
 gem 'devise-jwt'
 gem 'faker'
 gem 'jbuilder'
@@ -26,9 +26,9 @@ gem 'grape-entity'
 gem 'rack-cors'
 
 group :development, :test do
+  gem 'dotenv'
   gem 'brakeman'
   gem 'capybara'
-  gem 'dotenv'
   gem 'factory_bot_rails'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
