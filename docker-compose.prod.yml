@@ -19,11 +19,11 @@ services:
   rupert:
     container_name: rupert_prod
     image: ghcr.io/pankarol88/rupert:latest
-    command: sh -c "bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p 3000"
+    command: sh -c "bundle exec rails db:prepare && bundle exec rails server -b 0.0.0.0 -p 20240"
     ports:
-      - "3000:3000"
+      - "20240:20240"
     expose:
-      - "3000"
+      - "20240"
     environment:
       - RAILS_ENV=production
     env_file:

@@ -10,4 +10,4 @@ RUN bundle install
 # Then copy the rest of the application
 COPY . .
 
-EXPOSE 3000
+EXPOSE 20240
