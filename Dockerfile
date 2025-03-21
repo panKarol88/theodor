@@ -3,9 +3,11 @@ FROM ruby:3.3.2 AS rupert
 WORKDIR /rupert
 ENV RAILS_ENV=development
 
-# Install curl and Node.js dependencies
+# Install curl, Node.js dependencies, and sassc build dependencies
 RUN apt-get update \
     && apt-get install -y curl \
+        build-essential \
+        libsass-dev \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest \

@@ -24,6 +24,7 @@ gem "neighbor"
 gem "grape", "~> 2.1"
 gem 'grape-entity'
 gem 'rack-cors'
+gem 'sassc'
 
 group :development, :test do
   gem 'dotenv'
