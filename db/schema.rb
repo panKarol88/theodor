@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_18_070707) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_21_153406) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
+
+  create_table "conversation_messages", force: :cascade do |t|
+    t.text "user_message", null: false
+    t.text "bot_message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "data_crumbs", force: :cascade do |t|
     t.text "content", null: false

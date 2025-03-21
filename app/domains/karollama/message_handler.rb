@@ -13,10 +13,12 @@ module Karollama
       @debug = debug
     end
 
-    def process_message
+    def process_message # rubocop:disable Metrics/AbcSize
       chat_response = OpenAi::Client.new.chat_completion(prompt: messages, model:)
       content = chat_response['choices'][0]['message']['content']
-      JSON.parse(content)['answer']
+      answer = JSON.parse(content)['answer']
+      ConversationMessage.create!(user_message: message, bot_message: answer)
+      answer
     rescue => e # rubocop:disable Style/RescueStandardError
       raise e unless debug
 
