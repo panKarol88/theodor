@@ -8,7 +8,8 @@ RUN apt-get update \
     && apt-get install -y curl \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
-    && npm install -g npm@latest
+    && npm install -g npm@latest \
+    && npm install -g yarn
 
 # Install Ruby dependencies
 COPY Gemfile Gemfile.lock ./
