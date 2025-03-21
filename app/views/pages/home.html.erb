@@ -17,4 +17,16 @@
       <%= link_to workflow.name, workflow, class: 'btn btn--dark' %>
     <% end %>
   </div>
+
+  <h1>Conversation Logs</h1>
+  <div class="home-section-content">
+    <% @conversation_logs.each do |log| %>
+      <p> ------------------------ </p>
+      <div class="conversation-log">
+        <%= log.user_message %>
+        <%= log.bot_message %>
+      </div>
+      <p> ------------------------ </p>
+    <% end %>
+  </div>
 </main>
