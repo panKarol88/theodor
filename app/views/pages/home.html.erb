@@ -23,8 +23,8 @@
     <% @conversation_logs.each do |log| %>
       <p> ------------------------ </p>
       <div class="conversation-log">
-        <%= log.user_message %>
-        <%= log.bot_message %>
+        <p> <%= log.user_message %> </p>
+        <p> <%= log.bot_message %> </p>
       </div>
       <p> ------------------------ </p>
     <% end %>
