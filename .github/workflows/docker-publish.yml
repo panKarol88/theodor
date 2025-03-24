@@ -49,9 +49,8 @@ jobs:
         - name: connect and pull
           run: |
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} -p ${{ secrets.SSH_PORT }} -i ~/.ssh/id_rsa "cd ${{ secrets.WORK_DIR }} &&
-            docker ps -q --filter 'name=rupert' || docker stop rupert &&
-            docker ps -q --filter 'name=rupert_prod' || docker stop rupert_prod &&
-            docker ps -q --filter 'name=rupert_prod_db' || docker stop rupert_prod_db &&
+            docker ps -q --filter 'name=rupert_prod' && docker stop rupert_prod &&
+            docker ps -q --filter 'name=rupert_prod_db' && docker stop rupert_prod_db &&
             docker system prune -a -f &&
             echo '${{ secrets.PAT }}' | docker login ghcr.io -u ${{ github.actor }} --password-stdin &&
             docker pull ghcr.io/pankarol88/karol_blog:latest &&
