@@ -5,6 +5,8 @@ module Shared
     end
 
     def count_probability
+      return 1 if logprobs_tokens.blank?
+
       sanitize_json_tokens
       sanitize_special_characters
 

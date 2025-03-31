@@ -1,24 +1,26 @@
 module Karollama
   class MessageHandler
     include Helpers::LlmInterface
+    include Utils::MessageHandlerInterface
 
-    DEFAULT_MODEL = 'gpt-4o-mini'.freeze
-    DEFAULT_WAREHOUSE_NAME = 'karollama'.freeze
-    DEFAULT_CONTEXT_LIMIT = 20
+    MODEL = 'gpt-4o-mini'.freeze
+    WAREHOUSE_NAME = 'karollama'.freeze
+    LANGFUSE_PROMPT_NAME = 'karollama'.freeze
+    LANGFUSE_FUNNEL = 'karollama'.freeze
+    CONTEXT_LIMIT = 20
 
-    def initialize(message:, model: DEFAULT_MODEL, warehouse_name: DEFAULT_WAREHOUSE_NAME, debug: false)
+    def initialize(message:, session_id: nil, model: MODEL, warehouse_name: WAREHOUSE_NAME, debug: false)
       @message = message
+      @session_id = session_id
       @model = model
       @warehouse = Warehouse.find_by!(name: warehouse_name)
       @debug = debug
     end
 
-    def process_message # rubocop:disable Metrics/AbcSize
-      chat_response = OpenAi::Client.new.chat_completion(prompt: messages, model:)
-      content = chat_response['choices'][0]['message']['content']
-      answer = JSON.parse(content)['answer']
-      ConversationMessage.create!(user_message: message, bot_message: answer)
-      answer
+    def process_message
+      langfuse_client.process_with_langfuse do
+        generate_chat_completion
+      end
     rescue => e # rubocop:disable Style/RescueStandardError
       raise e unless debug
 
@@ -27,40 +29,35 @@ module Karollama
 
     private
 
-    attr_reader :message, :model, :warehouse, :debug
+    attr_reader :message, :session_id, :model, :warehouse, :debug
 
-    def context
-      @context ||= Context::KnowledgeCollector.new(
+    def generate_chat_completion
+      raw_response = chat(prompt:, model:)
+      response = parsed_chat_response(raw_response)
+      ConversationMessage.create!(user_message: message, bot_message: response)
+
+      [raw_response, response]
+    end
+
+    def langfuse_client
+      @langfuse_client ||= Langfuse::Client.new(prompt_name: LANGFUSE_PROMPT_NAME, variables:, session_id:, model:, funnel: LANGFUSE_FUNNEL)
+    end
+
+    def prompt
+      langfuse_client.final_prompt
+    end
+
+    def variables
+      { context_information:, message: }
+    end
+
+    def context_information
+      @context_information ||= Context::KnowledgeCollector.new(
         issue: message,
         warehouse:
       ).find_related_data_crumbs(
-        limit: DEFAULT_CONTEXT_LIMIT
+        limit: CONTEXT_LIMIT
       ).map(&:content).join("\n")
-    end
-
-    def karollama_prompt
-      YAML.load_file(File.join(__dir__, 'karollama_prompt.yml'))
-    end
-
-    def user_prompt
-      { context_information: context, message: }.to_json
-    end
-
-    def system_prompt
-      prompt_body = ''
-      karollama_prompt.each do |key, value|
-        paragraph = key.in?(%w[entry afterword]) ? "#{value}\n\n" : "<#{key}>\n#{value}\n</#{key}>\n"
-        prompt_body << paragraph
-      end
-
-      prompt_body
-    end
-
-    def messages
-      [
-        { role: 'system', content: system_prompt },
-        { role: 'user', content: user_prompt }
-      ]
     end
   end
 end

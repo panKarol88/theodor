@@ -6,8 +6,8 @@ module Helpers
       LlmTools::Embedding.new(input:).embed
     end
 
-    def chat(prompt)
-      choice = LlmTools::Chat.new.submit(prompt:)
+    def chat(prompt:, model: 'gpt-4o-mini')
+      choice = LlmTools::Chat.new.submit(prompt:, model:)
       response_object(choice)
     end
 

@@ -19,7 +19,7 @@ module OpenAi
         {
           frequency_penalty: 0.2, # [float] between -2.0 and 2.0.
           logit_bias: nil, # [object]
-          logprobs: true, # [boolean] return log probabilities
+          logprobs: false, # [boolean] return log probabilities
           top_logprobs: nil, # [integer] between 0 and 20 specifying the number of most likely tokens for each token position
           max_tokens: 3000, # [integer] between 1 and 4096
           n: 1, # [integer] how many chat completion choices to generate

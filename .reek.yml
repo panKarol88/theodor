@@ -11,8 +11,6 @@ detectors:
     enabled: false
   TooManyStatements:
     max_statements: 10
-  LongParameterList:
-    max_params: 5
   UncommunicativeModuleName:
     enabled: false
   InstanceVariableAssumption:
@@ -23,6 +21,12 @@ detectors:
     enabled: false
   UncommunicativeVariableName:
     enabled: false
+  TooManyInstanceVariables:
+    max_instance_variables: 10
+  ControlParameter:
+    enabled: false
+  LongParameterList:
+    max_params: 10
 
 directories:
   'app/controllers**':
@@ -30,6 +34,13 @@ directories:
       enabled: false
   '**/utils**':
     UtilityFunction:
+      enabled: false
+    FeatureEnvy:
+      enabled: false
+  '**/**/utils**':
+    UtilityFunction:
+      enabled: false
+    FeatureEnvy:
       enabled: false
   '**/services**':
     UtilityFunction:
