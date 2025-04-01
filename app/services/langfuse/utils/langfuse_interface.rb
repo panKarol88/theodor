@@ -19,6 +19,10 @@ module Langfuse
         SecureRandom.uuid
       end
 
+      def parsed_chat_response(chat_response)
+        JSON.parse(chat_response[:content])['answer']
+      end
+
       def http(url)
         @http ||= Net::HTTP.new(url.host, url.port).tap do |http|
           http.use_ssl = true
