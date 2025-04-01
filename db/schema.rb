@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_21_153406) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_31_104515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -20,6 +20,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_21_153406) do
     t.text "bot_message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "session_id"
+    t.uuid "trace_id"
+    t.uuid "generation_id"
+    t.index ["generation_id"], name: "index_conversation_messages_on_generation_id"
+    t.index ["session_id"], name: "index_conversation_messages_on_session_id"
+    t.index ["trace_id"], name: "index_conversation_messages_on_trace_id"
   end
 
   create_table "data_crumbs", force: :cascade do |t|

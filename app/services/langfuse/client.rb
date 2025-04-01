@@ -7,64 +7,61 @@ module Langfuse
     MODEL = 'gpt-4o-mini'
     DEFAULT_FUNNEL = 'default'
 
+    attr_reader :session_id, :trace_id, :generation_id, :decorated_prompt
+
     # :reek:LongParameterList
-    def initialize(prompt_name:, variables: {}, session_id: nil, trace_id: nil, generation_id: nil, model: MODEL, funnel: DEFAULT_FUNNEL)
-      @prompt_name = prompt_name
-      @variables = variables
-      @session_id = session_id || generate_uuid
-      @trace_id = trace_id || generate_uuid
-      @generation_id = generation_id || generate_uuid
+    def initialize(original_message:, session_id: nil, model: MODEL, funnel: DEFAULT_FUNNEL)
+      @original_message = original_message
+      @session_id = session_id
       @model = model
       @funnel = funnel
     end
 
-    # build final promp
+    def process_with_langfuse(prompt_name:, variables:)
+      @prompt_name = prompt_name
+      @decorated_prompt = generate_decorated_prompt(variables:)
+
+      session_id.present? ? generation_create : invoke
+      raw_response, response = yield
+      generation_update(output: raw_response)
+      response
+    end
+
+    # build decorated promp
     # input:
     # Exmple text and this is some content {{content}}
     # output:
     # Exmple text and this is some content Example Content
-    # :reek:NestedIterators
-    def final_prompt
-      @final_prompt ||= prompt['prompt'].map do |message|
-        content = message['content'].gsub(/\{\{(\w+)\}\}/) do |match|
+    # :reek:NestedIterators, :reek:FeatureEnvy
+    def generate_decorated_prompt(variables:)
+      prompt['prompt'].map do |prompt_message|
+        content = prompt_message['content'].gsub(/\{\{(\w+)\}\}/) do |match|
           variable = match.gsub(/\{\{(.*)\}\}/, '\1').to_sym
           variables[variable] || match
         end
 
-        { role: message['role'], content: }
+        { role: prompt_message['role'], content: }
       end
     end
 
-    def process_with_langfuse
-      invoke
-      raw_response, response = yield
-      generation_update(output: raw_response)
+    private
 
-      response
-    end
+    attr_reader :original_message, :prompt_name, :model, :funnel
 
     def invoke
+      @session_id ||= generate_uuid
+      @trace_id = generate_uuid
+      @generation_id = generate_uuid
       ingestion_request(instructions: [trace_create_body, generation_create_body])
     end
 
-    def trace_create
-      ingestion_request(instructions: [trace_create_body])
-    end
-
     def generation_create
+      @generation_id = generate_uuid
       ingestion_request(instructions: [generation_create_body])
     end
 
     def generation_update(output:)
       ingestion_request(instructions: [generation_update_body(output:)])
-    end
-
-    private
-
-    attr_reader :prompt_name, :variables, :session_id, :trace_id, :generation_id, :model
-
-    def trace
-      langfuse_request(url: URI("#{api_url}/public/traces/#{trace_id}"))
     end
 
     def trace_create_body
@@ -75,7 +72,8 @@ module Langfuse
         body: { id: trace_id,
                 timestamp: time_now,
                 sessionId: session_id,
-                name: 'My Trace',
+                name: funnel,
+                input: original_message,
                 public: false }
       }
     end
@@ -90,9 +88,9 @@ module Langfuse
                 timestamp: time_now,
                 promptName: prompt_name,
                 promptVersion: 1,
-                input: final_prompt.to_json,
+                input: decorated_prompt.to_json,
                 type: 'GENERATION',
-                name: 'generation-karollama',
+                name: prompt_name,
                 model: }
       }
     end
@@ -129,8 +127,6 @@ module Langfuse
 
       response = langfuse_request(url:, body:, method:)
       Rails.logger.info("Langfuse response: #{response}")
-
-      response
     end
   end
 end
