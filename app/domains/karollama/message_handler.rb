@@ -50,7 +50,10 @@ module Karollama
 
     def get_information # rubocop:disable Naming/AccessorMethodName
       prompt_name = PROMPTS_COLLECTION[:get_information]
-      variables = { context_information:, message: }
+      previous_messages = ConversationMessage.where(session_id:).order(:created_at).map do |cm|
+        cm.slice(:user_message, :bot_message).values
+      end.flatten
+      variables = { context_information:, previous_messages:, message: }
 
       prompt_broker.process_message(message:, prompt_name:, variables:)
     end
