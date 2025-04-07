@@ -13,11 +13,11 @@ module Karollama
       request: 'karollama_request'
     }.freeze
 
-    def initialize(prompt_broker: Langfuse::Client, session_id: nil, model: MODEL, warehouse_name: WAREHOUSE_NAME, debug: false)
+    def initialize(warehouse_name:, prompt_broker: Langfuse::Client, session_id: nil, model: MODEL, debug: false)
       @prompt_broker = prompt_broker.new(funnel: FUNNEL, session_id:, model:)
       @session_id = session_id
       @model = model
-      @warehouse = Warehouse.find_by!(name: warehouse_name)
+      @warehouse = Warehouse.find_by!(name: warehouse_name || WAREHOUSE_NAME)
       @debug = debug
     end
 
