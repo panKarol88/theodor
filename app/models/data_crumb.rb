@@ -21,7 +21,7 @@ class DataCrumb < ApplicationRecord
   # after_update_commit -> { broadcast_replace_later_to "data_crumbs" }
   # after_destroy_commit -> { broadcast_remove_to "data_crumbs" }
 
-  broadcasts_to ->(data_crumb) { [data_crumb.warehouse, 'data_crumbs'] }, inserts_by: :prepend
+  # broadcasts_to ->(data_crumb) { [data_crumb.warehouse, 'data_crumbs'] }, inserts_by: :prepend
 
   attribute :feature_id, :integer
 end
