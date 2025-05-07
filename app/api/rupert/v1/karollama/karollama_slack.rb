@@ -28,8 +28,10 @@ module Rupert
             permitted_params[:event][:blocks].first[:elements].first[:elements].first[:text]
           end
 
-          def should_proceed?
-            slack_team_id == ENV.fetch('SLACK_TEAM_ID') && event_user_id != ENV.fetch('SLACK_RUPERT_USER_ID')
+          def should_ask_karollama?
+            slack_team_id == ENV.fetch('SLACK_TEAM_ID') &&
+              event_user_id != ENV.fetch('SLACK_RUPERT_USER_ID') &&
+              permitted_params[:challenge].blank?
           end
 
           def result
@@ -45,11 +47,9 @@ module Rupert
         end
 
         post do
-          p 'POST POST POST'
-          p should_proceed?
-          p params
+          Thread.new { send_karollama_slack_message } if should_ask_karollama?
 
-          Thread.new { send_karollama_slack_message } if should_proceed?
+          return permitted_params[:challenge] if permitted_params[:challenge].present?
 
           status :ok
         end
