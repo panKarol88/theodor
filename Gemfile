@@ -25,6 +25,7 @@ gem "grape", "~> 2.1"
 gem 'grape-entity'
 gem 'rack-cors'
 gem 'sassc'
+gem 'slack-ruby-client'
 
 group :development, :test do
   gem 'dotenv'

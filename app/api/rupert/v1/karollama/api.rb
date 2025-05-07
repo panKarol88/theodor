@@ -9,6 +9,10 @@ module Rupert
         resource :karollama do
           mount Rupert::V1::Karollama::Karollama
         end
+
+        resource :karollama_slack do
+          mount Rupert::V1::Karollama::KarollamaSlack
+        end
       end
     end
   end

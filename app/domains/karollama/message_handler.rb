@@ -82,5 +82,3 @@ module Karollama
     end
   end
 end
-
-# Karollama::MessageHandler.new.process_message(message: "who's karol")

@@ -164,12 +164,25 @@ GEM
       railties (>= 5.0.0)
     faker (3.4.1)
       i18n (>= 1.8.11, < 2)
+    faraday (2.13.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-mashify (1.0.0)
+      faraday (~> 2.0)
+      hashie
+    faraday-multipart (1.1.0)
+      multipart-post (~> 2.0)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     ffi (1.17.1-aarch64-linux-gnu)
     ffi (1.17.1-arm-linux-gnu)
     ffi (1.17.1-arm64-darwin)
     ffi (1.17.1-x86-linux-gnu)
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
+    gli (2.22.2)
+      ostruct
     globalid (1.2.1)
       activesupport (>= 6.1)
     grape (2.1.2)
@@ -182,6 +195,7 @@ GEM
       activesupport (>= 3.0.0)
       multi_json (>= 1.3.2)
     hashdiff (1.1.0)
+    hashie (5.0.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -213,6 +227,7 @@ GEM
     minitest (5.24.1)
     msgpack (1.7.2)
     multi_json (1.15.0)
+    multipart-post (2.4.1)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     mustermann-grape (1.1.0)
@@ -220,6 +235,8 @@ GEM
     mutex_m (0.2.0)
     neighbor (0.4.0)
       activerecord (>= 6.1)
+    net-http (0.6.0)
+      uri
     net-imap (0.4.14)
       date
       net-protocol
@@ -243,6 +260,7 @@ GEM
     nokogiri (1.16.6-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    ostruct (0.6.1)
     parallel (1.25.1)
     parser (3.3.3.0)
       ast (~> 2.4.1)
@@ -387,6 +405,13 @@ GEM
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
+    slack-ruby-client (2.5.2)
+      faraday (>= 2.0)
+      faraday-mashify
+      faraday-multipart
+      gli
+      hashie
+      logger
     smart_properties (1.17.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -408,6 +433,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uri (1.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
     warden-jwt_auth (0.10.0)
@@ -476,6 +502,7 @@ DEPENDENCIES
   selenium-webdriver
   shoulda-matchers (~> 6.0)
   simple_form
+  slack-ruby-client
   sprockets-rails
   stimulus-rails
   turbo-rails

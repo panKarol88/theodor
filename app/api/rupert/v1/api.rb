@@ -17,6 +17,12 @@ module Rupert
       helpers ::Rupert::Helpers::Auth
       helpers ::Rupert::Helpers::ErrorHandler
 
+      helpers do
+        def permitted_params
+          declared(params, include_missing: false).deep_symbolize_keys
+        end
+      end
+
       mount Users::API
       mount Prompts::API
       mount Karollama::API
