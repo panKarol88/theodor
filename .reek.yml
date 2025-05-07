@@ -27,6 +27,8 @@ detectors:
     enabled: false
   LongParameterList:
     max_params: 10
+  TooManyConstants:
+    max_constants: 10
 
 directories:
   'app/controllers**':

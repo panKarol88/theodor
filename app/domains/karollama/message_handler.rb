@@ -6,6 +6,7 @@ module Karollama
     WAREHOUSE_NAME = 'karollama'.freeze
     FUNNEL = 'karollama'.freeze
     CONTEXT_LIMIT = 20
+    PREVIOUS_MESSAGES_LIMIT = 10
 
     PROMPTS_COLLECTION = {
       triage: 'karollama_triage',
@@ -50,7 +51,7 @@ module Karollama
 
     def get_information # rubocop:disable Naming/AccessorMethodName
       prompt_name = PROMPTS_COLLECTION[:get_information]
-      previous_messages = ConversationMessage.where(session_id:).order(:created_at).map do |cm|
+      previous_messages = ConversationMessage.where(session_id:).order(:created_at).last(PREVIOUS_MESSAGES_LIMIT).map do |cm|
         cm.slice(:user_message, :bot_message).values
       end.flatten
       variables = { context_information:, previous_messages:, message: }

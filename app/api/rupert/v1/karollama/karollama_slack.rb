@@ -6,7 +6,7 @@ module Rupert
       class KarollamaSlack < API
         desc 'Process karollama with slack.'
 
-        SLACK_SESSION_ID = 'ongoing_karollama_slack_session'
+        SLACK_SESSION_ID = ENV.fetch('SLACK_RUPERT_ONGOING_SESSION_ID')
         SLACK_WAREHOUSE_NAME = 'karollama'
 
         params do
